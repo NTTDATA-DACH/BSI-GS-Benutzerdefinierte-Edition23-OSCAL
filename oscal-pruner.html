@@ -1,0 +1,1205 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>OSCAL Catalog Pruner — v1.2.0</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg-deep:oklch(0.13 0.02 280);
+  --bg-elev-1:oklch(0.95 0.005 280/.04);
+  --bg-elev-2:oklch(0.95 0.005 280/.06);
+  --bg-elev-3:oklch(0.95 0.005 280/.08);
+  --border-1:oklch(0.95 0.005 280/.06);
+  --border-2:oklch(0.95 0.005 280/.10);
+  --text-primary:oklch(0.95 0.005 280);
+  --text-secondary:oklch(0.75 0.02 280);
+  --text-tertiary:oklch(0.65 0.02 280);
+  --text-quiet:oklch(0.55 0.02 280);
+  --accent:oklch(0.7 0.18 300);
+  --accent-soft:oklch(0.7 0.18 300/.15);
+  --accent-glow:oklch(0.7 0.18 300/.4);
+  --red:oklch(0.65 0.2 25);
+  --green:oklch(0.75 0.18 145);
+  --blue:oklch(0.7 0.15 240);
+  --amber:oklch(0.78 0.16 75);
+}
+*{box-sizing:border-box}
+html,body{height:100%}
+body{
+  margin:0;
+  font-family:'Inter',system-ui,sans-serif;
+  font-size:14px;
+  line-height:1.55;
+  background:var(--bg-deep);
+  color:var(--text-primary);
+  overflow:hidden;
+}
+::selection{background:oklch(0.7 0.18 300/.35);color:var(--text-primary)}
+::-webkit-scrollbar{width:6px;height:6px}
+::-webkit-scrollbar-track{background:transparent}
+::-webkit-scrollbar-thumb{background:oklch(0.95 0.005 280/.15);border-radius:3px}
+::-webkit-scrollbar-thumb:hover{background:oklch(0.7 0.18 300/.4)}
+
+/* shell */
+.shell{display:flex;flex-direction:column;height:100vh;position:relative;z-index:1}
+.topbar{
+  height:62px;flex-shrink:0;
+  display:flex;align-items:center;gap:24px;
+  padding:0 28px;
+  background:oklch(0.13 0.02 280/.6);
+  backdrop-filter:blur(20px);
+  border-bottom:1px solid var(--border-1);
+}
+.brand{display:flex;align-items:center;gap:12px}
+.brand-mark{
+  width:28px;height:28px;
+  border-radius:8px;
+  background:linear-gradient(135deg,var(--accent),oklch(0.55 0.18 260));
+  display:flex;align-items:center;justify-content:center;
+  font-family:'JetBrains Mono',monospace;font-weight:600;
+  box-shadow:0 4px 12px var(--accent-glow);
+}
+.brand-name{font-weight:600;letter-spacing:-0.2px}
+.brand-version{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--text-quiet);letter-spacing:1.5px;margin-left:4px}
+.topbar-spacer{flex:1}
+.topbar-meta{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--text-quiet);letter-spacing:1.5px;text-transform:uppercase}
+
+/* body row */
+.body-row{flex:1;display:flex;min-height:0;position:relative}
+
+/* left rail */
+.left-rail{
+  width:240px;flex-shrink:0;
+  display:flex;flex-direction:column;
+  padding:24px 18px;
+  background:oklch(0.13 0.02 280/.4);
+  backdrop-filter:blur(20px);
+  border-right:1px solid var(--border-1);
+  overflow-y:auto;min-height:0;
+}
+.nav-group{margin-bottom:24px}
+.nav-label{
+  font-family:'JetBrains Mono',monospace;
+  font-size:10px;letter-spacing:1.5px;
+  color:var(--text-quiet);
+  padding:0 12px 8px;
+}
+.nav-item{
+  display:flex;align-items:center;gap:10px;
+  padding:9px 12px;
+  border-radius:8px;
+  font-size:13px;
+  color:oklch(0.85 0.005 280);
+  cursor:pointer;
+  transition:background 120ms ease,color 120ms ease;
+}
+.nav-item:hover{background:var(--bg-elev-2)}
+.nav-item.active{background:var(--accent-soft);color:var(--text-primary)}
+.nav-item.active .nav-icon{color:var(--accent)}
+.nav-icon{font-size:14px;color:var(--text-tertiary);width:14px;text-align:center}
+.nav-item.active .nav-icon{color:var(--accent)}
+.rail-spacer{flex:1}
+.rail-cta{
+  margin-top:16px;
+  padding:12px;
+  border:1px dashed var(--border-2);
+  border-radius:8px;
+  font-family:'JetBrains Mono',monospace;
+  font-size:11px;letter-spacing:1.2px;
+  color:var(--text-tertiary);
+  text-align:center;
+  cursor:pointer;
+  transition:all 120ms ease;
+}
+.rail-cta:hover{border-color:var(--accent);color:var(--accent)}
+
+/* splitter */
+#splitter{width:6px;cursor:col-resize;background:transparent;flex-shrink:0;transition:background 120ms ease}
+#splitter:hover{background:oklch(0.7 0.18 300/.3)}
+
+/* main */
+.main{flex:1;display:flex;flex-direction:column;min-width:0;overflow:hidden}
+.main-scroll{flex:1;overflow-y:auto;min-height:0;padding:28px 32px}
+
+/* sections */
+.section{margin-bottom:28px}
+.section-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;gap:16px}
+.section-title{font-size:18px;font-weight:600;letter-spacing:-0.2px}
+.section-meta{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--text-quiet);letter-spacing:1.5px;text-transform:uppercase}
+
+/* glass card */
+.glass{
+  background:var(--bg-elev-1);
+  border:1px solid var(--border-1);
+  backdrop-filter:blur(20px);
+  border-radius:12px;
+}
+.card{padding:18px}
+
+/* file upload */
+.dropzone{
+  padding:32px;
+  border:1.5px dashed var(--border-2);
+  border-radius:12px;
+  text-align:center;
+  background:var(--bg-elev-1);
+  transition:all 160ms ease;
+  cursor:pointer;
+}
+.dropzone:hover,.dropzone.drag{
+  border-color:var(--accent);
+  background:var(--accent-soft);
+}
+.dropzone-glyph{font-size:24px;color:var(--accent);margin-bottom:8px}
+.dropzone-title{font-weight:500;margin-bottom:4px}
+.dropzone-hint{font-size:12px;color:var(--text-tertiary)}
+.dropzone-hint code{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--text-secondary);background:var(--bg-elev-2);padding:1px 6px;border-radius:4px}
+input[type=file]{display:none}
+
+/* textarea */
+textarea{
+  width:100%;
+  resize:vertical;
+  min-height:140px;
+  background:oklch(0.95 0.005 280/.04);
+  border:1px solid oklch(0.95 0.005 280/.08);
+  color:oklch(0.95 0.005 280);
+  padding:12px 14px;
+  border-radius:10px;
+  font-family:'JetBrains Mono',monospace;
+  font-size:12px;line-height:1.6;
+  outline:none;
+  backdrop-filter:blur(10px);
+}
+textarea:focus{
+  border-color:oklch(0.7 0.18 300/.6);
+  box-shadow:0 0 0 3px oklch(0.7 0.18 300/.15);
+}
+textarea::-webkit-resizer{
+  background:linear-gradient(135deg,transparent 50%,oklch(0.7 0.18 300/.5) 50%);
+}
+
+/* options row */
+.opt-row{display:flex;flex-wrap:wrap;gap:14px;margin-top:14px}
+.opt{display:flex;align-items:center;gap:8px;font-size:13px}
+.opt input[type=checkbox]{
+  appearance:none;width:16px;height:16px;
+  border:1px solid var(--border-2);
+  background:var(--bg-elev-1);
+  border-radius:4px;
+  cursor:pointer;position:relative;
+  transition:all 120ms ease;
+}
+.opt input[type=checkbox]:checked{
+  background:var(--accent);
+  border-color:var(--accent);
+}
+.opt input[type=checkbox]:checked::after{
+  content:'✓';position:absolute;
+  top:50%;left:50%;transform:translate(-50%,-50%);
+  font-size:11px;color:white;line-height:1;
+}
+.opt label{cursor:pointer;color:var(--text-secondary)}
+
+/* buttons */
+.btn-row{display:flex;gap:10px;margin-top:18px;flex-wrap:wrap}
+button{
+  font-family:inherit;font-size:13px;font-weight:500;
+  padding:10px 18px;
+  border:none;border-radius:8px;
+  cursor:pointer;
+  transition:all 160ms ease;
+  display:inline-flex;align-items:center;gap:8px;
+}
+button:disabled{opacity:.4;cursor:not-allowed}
+.btn-primary{
+  background:var(--accent);color:white;
+  box-shadow:0 6px 20px var(--accent-glow);
+}
+.btn-primary:hover:not(:disabled){background:oklch(0.75 0.18 300);transform:translateY(-1px)}
+.btn-secondary{
+  background:var(--bg-elev-2);color:var(--text-primary);
+  border:1px solid var(--border-2);
+}
+.btn-secondary:hover:not(:disabled){background:var(--bg-elev-3)}
+.btn-ghost{
+  background:transparent;color:var(--text-secondary);
+  border:1px solid var(--border-2);
+}
+.btn-ghost:hover:not(:disabled){border-color:var(--accent);color:var(--accent)}
+
+/* stats */
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:12px;margin-bottom:18px}
+.stat{
+  padding:14px 16px;
+  background:var(--bg-elev-1);
+  border:1px solid var(--border-1);
+  border-radius:10px;
+}
+.stat-label{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:1.5px;color:var(--text-quiet);text-transform:uppercase;margin-bottom:6px}
+.stat-value{font-size:24px;font-weight:600;letter-spacing:-0.5px}
+.stat-value.warn{color:var(--amber)}
+.stat-value.ok{color:var(--green)}
+
+/* output */
+.output-wrap{position:relative}
+.output-pre{
+  background:oklch(0.13 0.02 280/.7);
+  border:1px solid var(--border-1);
+  border-radius:10px;
+  padding:16px;
+  font-family:'JetBrains Mono',monospace;
+  font-size:12px;line-height:1.6;
+  max-height:520px;
+  overflow:auto;min-height:0;
+  white-space:pre-wrap;
+  word-break:break-word;
+}
+.output-pre.empty{color:var(--text-quiet);font-style:italic}
+
+/* JSON syntax tint */
+.j-key{color:oklch(0.78 0.14 280)}
+.j-str{color:oklch(0.78 0.14 145)}
+.j-num{color:oklch(0.78 0.16 75)}
+.j-bool{color:oklch(0.7 0.18 300)}
+.j-null{color:var(--text-quiet)}
+
+/* progress */
+.progress-wrap{margin:16px 0}
+.progress-wrap.hidden{display:none}
+.progress-meta{display:flex;justify-content:space-between;font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--text-quiet);letter-spacing:1.5px;text-transform:uppercase;margin-bottom:6px}
+.progress-track{height:1px;background:var(--border-1);overflow:hidden;border-radius:1px}
+.progress-fill{height:100%;background:var(--accent);width:0%;transition:width .2s ease}
+.progress-fill.done{background:var(--green)}
+
+/* log console */
+.log-card{display:flex;flex-direction:column;height:100%;min-height:0}
+.log-head{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:12px 16px;
+  border-bottom:1px solid var(--border-1);
+  font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:1.5px;text-transform:uppercase;color:var(--text-quiet);
+  flex-shrink:0;
+}
+.log-head-actions{display:flex;align-items:center;gap:14px}
+.log-head-actions label{display:flex;align-items:center;gap:6px;cursor:pointer;font-size:11px;letter-spacing:1.2px}
+.log-clear{cursor:pointer;color:var(--text-tertiary)}
+.log-clear:hover{color:var(--accent)}
+.log-body{
+  flex:1;
+  overflow-y:auto;min-height:0;
+  padding:8px 0;
+  font-family:'JetBrains Mono',monospace;font-size:12px;line-height:1.55;
+}
+.log-line{display:grid;grid-template-columns:80px 50px 1fr;gap:10px;padding:2px 16px}
+.log-line .ts{color:var(--text-quiet);font-size:11px}
+.log-line .lvl{font-size:10px;letter-spacing:1.2px;text-transform:uppercase;align-self:center}
+.log-line.info .lvl{color:var(--blue)}
+.log-line.ok .lvl{color:var(--green)}
+.log-line.warn .lvl{color:var(--amber)}
+.log-line.err .lvl{color:var(--red)}
+.log-line.debug .lvl{color:var(--text-quiet)}
+.log-line .msg{color:var(--text-secondary);word-break:break-word}
+.log-line.err .msg{color:oklch(0.85 0.12 25)}
+.log-line.ok .msg{color:var(--text-primary)}
+
+.row-2{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+@media (max-width:980px){.row-2{grid-template-columns:1fr}}
+
+.bottom-bar{
+  height:auto;max-height:40vh;min-height:200px;
+  flex-shrink:0;
+  background:oklch(0.13 0.02 280/.6);
+  backdrop-filter:blur(20px);
+  border-top:1px solid var(--border-1);
+  display:flex;flex-direction:column;
+  resize:vertical;overflow:hidden;
+}
+
+.kbd{
+  font-family:'JetBrains Mono',monospace;font-size:10px;
+  padding:1px 5px;border:1px solid var(--border-2);border-radius:4px;
+  color:var(--text-tertiary);background:var(--bg-elev-1);
+}
+
+.note{
+  margin-top:8px;font-size:12px;color:var(--text-tertiary);
+  display:flex;align-items:flex-start;gap:8px;
+}
+.note-glyph{color:var(--accent);font-size:14px;line-height:1}
+
+/* group tree picker */
+.picker-header{
+  display:flex;align-items:center;justify-content:space-between;
+  margin-bottom:14px;gap:12px;flex-wrap:wrap;
+}
+.picker-actions{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+.picker-link{
+  font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:1.2px;
+  color:var(--accent);cursor:pointer;text-decoration:none;text-transform:uppercase;
+}
+.picker-link:hover{text-decoration:underline}
+.picker-count{
+  font-family:'JetBrains Mono',monospace;font-size:11px;
+  color:var(--text-quiet);letter-spacing:1.2px;
+}
+.tree-wrap{
+  max-height:400px;overflow-y:auto;min-height:0;
+  padding:2px 0 6px;
+}
+/* each tree node */
+.tree-node{display:block}
+.tree-row{
+  display:flex;align-items:center;gap:6px;
+  padding:5px 6px;border-radius:7px;
+  transition:background 120ms ease;
+  user-select:none;
+}
+.tree-row:hover{background:var(--bg-elev-2)}
+.tree-row.row-checked{background:var(--accent-soft)}
+.tree-row.row-partial{background:oklch(0.7 0.18 300/.07)}
+
+/* expand/collapse toggle */
+.tree-toggle{
+  width:18px;height:18px;flex-shrink:0;
+  display:flex;align-items:center;justify-content:center;
+  font-family:'JetBrains Mono',monospace;font-size:10px;
+  color:var(--text-tertiary);border-radius:4px;cursor:pointer;
+  transition:all 120ms ease;
+}
+.tree-toggle:hover{color:var(--accent);background:var(--bg-elev-3)}
+.tree-toggle.leaf{cursor:default;color:var(--text-quiet)}
+.tree-toggle.leaf:hover{background:none;color:var(--text-quiet)}
+
+/* tree checkbox */
+.tree-chk{
+  appearance:none;width:15px;height:15px;flex-shrink:0;
+  border:1px solid var(--border-2);background:var(--bg-elev-2);
+  border-radius:3px;cursor:pointer;position:relative;
+  transition:all 120ms ease;
+}
+.tree-chk:checked{background:var(--accent);border-color:var(--accent)}
+.tree-chk:checked::after{
+  content:'✓';position:absolute;
+  top:50%;left:50%;transform:translate(-50%,-50%);
+  font-size:10px;color:white;line-height:1;
+}
+.tree-chk.partial{
+  background:oklch(0.7 0.18 300/.35);border-color:oklch(0.7 0.18 300/.7);
+}
+.tree-chk.partial::after{
+  content:'−';position:absolute;
+  top:50%;left:50%;transform:translate(-50%,-52%);
+  font-size:13px;color:white;line-height:1;font-weight:700;
+}
+.tree-id{
+  font-family:'JetBrains Mono',monospace;font-size:11px;
+  color:var(--accent);letter-spacing:0.8px;flex-shrink:0;min-width:56px;
+}
+.tree-title{font-size:12px;color:var(--text-secondary);flex:1;line-height:1.3}
+.tree-badge{
+  font-family:'JetBrains Mono',monospace;font-size:10px;
+  color:var(--text-quiet);flex-shrink:0;
+}
+/* children indent */
+.tree-children{padding-left:22px;border-left:1px solid var(--border-1);margin-left:9px}
+</style>
+</head>
+<body>
+
+<!-- aurora atmosphere -->
+<div style="position:fixed;width:600px;height:600px;border-radius:50%;background:radial-gradient(circle,oklch(0.4 0.18 300/.5),transparent 70%);top:-200px;left:-100px;filter:blur(60px);pointer-events:none;z-index:0"></div>
+<div style="position:fixed;width:700px;height:700px;border-radius:50%;background:radial-gradient(circle,oklch(0.4 0.16 240/.4),transparent 70%);bottom:-300px;right:-200px;filter:blur(80px);pointer-events:none;z-index:0"></div>
+<div style="position:fixed;inset:0;opacity:0.03;pointer-events:none;z-index:0;background-image:url('data:image/svg+xml;utf8,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%22100%22 height=%22100%22><filter id=%22n%22><feTurbulence baseFrequency=%220.9%22/></filter><rect width=%22100%22 height=%22100%22 filter=%22url(%23n)%22/></svg>')"></div>
+
+<div class="shell">
+  <!-- top bar -->
+  <header class="topbar">
+    <div class="brand">
+      <div class="brand-mark">◬</div>
+      <div>
+        <span class="brand-name">OSCAL Pruner</span>
+        <span class="brand-version">v1.2.0</span>
+      </div>
+    </div>
+    <div class="topbar-spacer"></div>
+    <div class="topbar-meta">Catalog → Group · Control · Statement</div>
+  </header>
+
+  <div class="body-row">
+    <!-- left rail -->
+    <aside class="left-rail" id="left-rail">
+      <div class="nav-group">
+        <div class="nav-label">INPUTS</div>
+        <div class="nav-item active"><span class="nav-icon">◐</span> Source</div>
+        <div class="nav-item"><span class="nav-icon">◇</span> Options</div>
+      </div>
+      <div class="nav-group">
+        <div class="nav-label">PROCESSING</div>
+        <div class="nav-item"><span class="nav-icon">◈</span> Run</div>
+        <div class="nav-item"><span class="nav-icon">▣</span> Results</div>
+      </div>
+      <div class="rail-spacer"></div>
+      <div class="rail-cta" id="reset-cta">+ NEW SESSION</div>
+      <div style="margin-top:14px;font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:1.2px;color:var(--text-quiet);text-align:center">
+        100% LOCAL · NO API CALLS
+      </div>
+    </aside>
+
+    <div id="splitter"></div>
+
+    <!-- main -->
+    <main class="main">
+      <div class="main-scroll">
+
+        <!-- SOURCE -->
+        <section class="section">
+          <div class="section-head">
+            <div class="section-title">Source catalog</div>
+            <div class="section-meta">STEP 01 · INPUT</div>
+          </div>
+
+          <div class="dropzone" id="dropzone">
+            <div class="dropzone-glyph">⤓</div>
+            <div class="dropzone-title">Drop OSCAL catalog file or click to browse</div>
+            <div class="dropzone-hint">accepts <code>.json</code> · or paste below</div>
+            <input type="file" id="file-input" accept=".json,application/json">
+          </div>
+
+          <div style="margin-top:14px">
+            <textarea id="json-input" placeholder='Or paste OSCAL catalog JSON here…  e.g. { "catalog": { "groups": [ … ] } }'></textarea>
+          </div>
+        </section>
+
+        <!-- GROUP PICKER -->
+        <section class="section" id="group-picker-section" style="display:none">
+          <div class="section-head">
+            <div class="section-title">Select groups</div>
+            <div class="section-meta" id="picker-step-meta">STEP 02 · FILTER</div>
+          </div>
+          <div class="glass card">
+            <div class="picker-header">
+              <span class="picker-count" id="picker-count">0 of 0 selected</span>
+              <div class="picker-actions">
+                <span class="picker-link" id="picker-expand-all">EXPAND ALL</span>
+                <span style="color:var(--border-2)">·</span>
+                <span class="picker-link" id="picker-collapse-all">COLLAPSE ALL</span>
+                <span style="color:var(--border-2)">·</span>
+                <span class="picker-link" id="picker-all">SELECT ALL</span>
+                <span style="color:var(--border-2)">·</span>
+                <span class="picker-link" id="picker-none">DESELECT ALL</span>
+              </div>
+            </div>
+            <div class="tree-wrap" id="picker-grid"></div>
+          </div>
+        </section>
+
+        <!-- OPTIONS -->
+        <section class="section">
+          <div class="section-head">
+            <div class="section-title">Pruning options</div>
+            <div class="section-meta">STEP 02 · CONFIG</div>
+          </div>
+          <div class="glass card">
+            <div class="opt-row">
+              <div class="opt">
+                <input type="checkbox" id="opt-flatten">
+                <label for="opt-flatten">Flatten nested groups (only emit groups that contain controls)</label>
+              </div>
+              <div class="opt">
+                <input type="checkbox" id="opt-keep-class" checked>
+                <label for="opt-keep-class">Keep group <code style="font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--text-secondary)">class</code> field</label>
+              </div>
+              <div class="opt">
+                <input type="checkbox" id="opt-include-empty" checked>
+                <label for="opt-include-empty">Include controls with no <code style="font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--text-secondary)">maturity-level-defined</code> statement</label>
+              </div>
+              <div class="opt">
+                <input type="checkbox" id="opt-pretty" checked>
+                <label for="opt-pretty">Pretty-print output (2-space indent)</label>
+              </div>
+            </div>
+
+            <div class="btn-row">
+              <button class="btn-primary" id="btn-run">▶ Prune catalog</button>
+              <button class="btn-ghost" id="btn-clear">Clear</button>
+            </div>
+
+            <div class="progress-wrap hidden" id="progress-wrap">
+              <div class="progress-meta">
+                <span id="progress-phase">…</span>
+                <span id="progress-count">0 / 0</span>
+              </div>
+              <div class="progress-track"><div class="progress-fill" id="progress-fill"></div></div>
+            </div>
+
+            <div class="note">
+              <span class="note-glyph">◬</span>
+              <span>For each control: extracts <code style="font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--text-secondary)">id</code>, <code style="font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--text-secondary)">title</code>, and the <code style="font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--text-secondary)">prose</code> from <code style="font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--text-secondary)">parts[class=maturity-level-defined].parts[name=statement]</code>.</span>
+            </div>
+          </div>
+        </section>
+
+        <!-- STATS -->
+        <section class="section" id="stats-section" style="display:none">
+          <div class="section-head">
+            <div class="section-title">Summary</div>
+            <div class="section-meta">STEP 03 · STATS</div>
+          </div>
+          <div class="stats" id="stats"></div>
+        </section>
+
+        <!-- OUTPUT -->
+        <section class="section">
+          <div class="section-head">
+            <div class="section-title">Pruned output</div>
+            <div class="section-meta" id="output-meta">STEP 04 · RESULT</div>
+          </div>
+          <div class="glass card">
+            <div class="output-wrap">
+              <pre class="output-pre empty" id="output">No output yet — load a catalog and click ▶ Prune catalog.</pre>
+            </div>
+            <div class="btn-row">
+              <button class="btn-secondary" id="btn-copy" disabled>⎘ Copy JSON</button>
+              <button class="btn-secondary" id="btn-download" disabled>⤓ Download .json</button>
+            </div>
+          </div>
+        </section>
+
+      </div>
+
+      <!-- log console -->
+      <div class="bottom-bar">
+        <div class="log-head">
+          <div>CONSOLE · <span id="log-count">0 lines</span></div>
+          <div class="log-head-actions">
+            <label><input type="checkbox" id="log-autoscroll" checked style="appearance:none;width:14px;height:14px;border:1px solid var(--border-2);background:var(--bg-elev-1);border-radius:3px;cursor:pointer;position:relative" onclick="this.checked=!this.checked"> AUTOSCROLL</label>
+            <span class="log-clear" id="log-clear">CLEAR</span>
+          </div>
+        </div>
+        <div class="log-body" id="log-body"></div>
+      </div>
+    </main>
+  </div>
+</div>
+
+<script>
+// ============================================================
+// OSCAL Catalog Pruner v1.0.0 — pure client-side, no API calls
+// ============================================================
+
+const $ = id => document.getElementById(id);
+const sleep = ms => new Promise(r => setTimeout(r, ms));
+
+const state = {
+  running: false,
+  cancel: false,
+  logCount: 0,
+  autoscroll: true,
+  result: null,
+};
+
+// ---------- log ----------
+function nowTs(){
+  const d = new Date();
+  return d.toTimeString().slice(0,8) + '.' + String(d.getMilliseconds()).padStart(3,'0');
+}
+function escapeHtml(s){
+  return String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+}
+function log(level,msg){
+  const body = $('log-body');
+  const line = document.createElement('div');
+  line.className = 'log-line ' + level;
+  line.innerHTML = `<span class="ts">${nowTs()}</span><span class="lvl">${level}</span><span class="msg">${escapeHtml(msg)}</span>`;
+  body.appendChild(line);
+  state.logCount++;
+  $('log-count').textContent = state.logCount + ' lines';
+  if (state.autoscroll) body.scrollTop = body.scrollHeight;
+}
+const l = {
+  info:  m => log('info', m),
+  ok:    m => log('ok',   m),
+  warn:  m => log('warn', m),
+  err:   m => log('err',  m),
+  debug: m => log('debug',m),
+};
+
+// ---------- progress ----------
+function showProgress(phase, done, total){
+  $('progress-wrap').classList.remove('hidden');
+  $('progress-phase').textContent = phase;
+  $('progress-count').textContent = `${done} / ${total}`;
+  const pct = total > 0 ? (done/total)*100 : 0;
+  $('progress-fill').style.width = pct + '%';
+  $('progress-fill').classList.toggle('done', done === total && total > 0);
+}
+function hideProgress(){
+  setTimeout(() => $('progress-wrap').classList.add('hidden'), 800);
+}
+
+// ---------- file handling ----------
+const dropzone = $('dropzone');
+const fileInput = $('file-input');
+dropzone.addEventListener('click', () => fileInput.click());
+dropzone.addEventListener('dragover', e => { e.preventDefault(); dropzone.classList.add('drag'); });
+dropzone.addEventListener('dragleave', () => dropzone.classList.remove('drag'));
+dropzone.addEventListener('drop', e => {
+  e.preventDefault(); dropzone.classList.remove('drag');
+  const f = e.dataTransfer.files?.[0];
+  if (f) loadFile(f);
+});
+fileInput.addEventListener('change', () => {
+  const f = fileInput.files?.[0];
+  if (f) loadFile(f);
+});
+function loadFile(f){
+  l.info(`reading file: ${f.name} (${(f.size/1024).toFixed(1)} kb)`);
+  const reader = new FileReader();
+  reader.onload = () => {
+    $('json-input').value = reader.result;
+    l.ok(`loaded ${f.name}`);
+    tryLiveParse();
+  };
+  reader.onerror = () => l.err(`failed to read ${f.name}`);
+  reader.readAsText(f);
+}
+
+// ---------- pruning core ----------
+const STATEMENT_CLASS = 'maturity-level-defined';
+const STATEMENT_NAME  = 'statement';
+
+function extractStatement(control){
+  if (!Array.isArray(control.parts)) return null;
+  const definedPart = control.parts.find(p => p && p.class === STATEMENT_CLASS);
+  if (!definedPart) return null;
+  if (!Array.isArray(definedPart.parts)) return null;
+  const stmt = definedPart.parts.find(p => p && p.name === STATEMENT_NAME);
+  if (!stmt || typeof stmt.prose !== 'string') return null;
+  return stmt.prose;
+}
+
+function pruneControl(control, opts, stats){
+  stats.controlsSeen++;
+  const statement = extractStatement(control);
+  if (statement === null) {
+    stats.controlsWithoutStatement++;
+    if (!opts.includeEmpty) return null;
+  } else {
+    stats.controlsWithStatement++;
+  }
+  return {
+    id: control.id,
+    title: control.title,
+    statement: statement,
+  };
+}
+
+function pruneGroupRecursive(group, opts, stats, selectedIds){
+  // if a filter is active and this group isn't selected, skip it entirely
+  if (selectedIds && selectedIds.size > 0 && !selectedIds.has(group.id)) return null;
+  stats.groupsSeen++;
+  const out = { id: group.id, title: group.title };
+  if (opts.keepClass && group.class !== undefined) out.class = group.class;
+
+  // controls
+  if (Array.isArray(group.controls)) {
+    const prunedControls = [];
+    for (const c of group.controls) {
+      const pc = pruneControl(c, opts, stats);
+      if (pc) prunedControls.push(pc);
+    }
+    if (prunedControls.length) out.controls = prunedControls;
+  }
+
+  // nested groups
+  if (Array.isArray(group.groups)) {
+    const prunedGroups = [];
+    for (const g of group.groups) {
+      const pg = pruneGroupRecursive(g, opts, stats, selectedIds);
+      if (pg) prunedGroups.push(pg);
+    }
+    if (prunedGroups.length) out.groups = prunedGroups;
+  }
+
+  // drop empty branches
+  if (!out.controls && !out.groups) return null;
+  return out;
+}
+
+function pruneFlat(group, opts, stats, acc, selectedIds){
+  if (selectedIds && selectedIds.size > 0 && !selectedIds.has(group.id)) return;
+  stats.groupsSeen++;
+  if (Array.isArray(group.controls) && group.controls.length) {
+    const prunedControls = [];
+    for (const c of group.controls) {
+      const pc = pruneControl(c, opts, stats);
+      if (pc) prunedControls.push(pc);
+    }
+    if (prunedControls.length) {
+      const flat = { id: group.id, title: group.title };
+      if (opts.keepClass && group.class !== undefined) flat.class = group.class;
+      flat.controls = prunedControls;
+      acc.push(flat);
+    }
+  }
+  if (Array.isArray(group.groups)) {
+    for (const g of group.groups) pruneFlat(g, opts, stats, acc, selectedIds);
+  }
+}
+
+// ---------- group tree picker ----------
+// Build a recursive tree node for a group
+function buildTreeNode(group, level){
+  const hasChildren = Array.isArray(group.groups) && group.groups.length > 0;
+  const ctrlCount = Array.isArray(group.controls) ? group.controls.length : 0;
+  const badge = hasChildren
+    ? `${group.groups.length} group${group.groups.length!==1?'s':''}`
+    : ctrlCount ? `${ctrlCount} ctrl` : '';
+
+  const node = document.createElement('div');
+  node.className = 'tree-node';
+  node.dataset.id = group.id;
+
+  const row = document.createElement('div');
+  row.className = 'tree-row row-checked';
+
+  // toggle
+  const toggle = document.createElement('span');
+  toggle.className = 'tree-toggle' + (hasChildren ? '' : ' leaf');
+  toggle.textContent = hasChildren ? '▶' : '·';
+
+  // checkbox
+  const chk = document.createElement('input');
+  chk.type = 'checkbox';
+  chk.className = 'tree-chk';
+  chk.value = group.id;
+  chk.checked = true;
+  chk.dataset.level = level;
+
+  // id badge
+  const idSpan = document.createElement('span');
+  idSpan.className = 'tree-id';
+  idSpan.textContent = group.id;
+
+  // title
+  const titleSpan = document.createElement('span');
+  titleSpan.className = 'tree-title';
+  titleSpan.textContent = group.title || '';
+
+  // badge
+  const badgeSpan = document.createElement('span');
+  badgeSpan.className = 'tree-badge';
+  badgeSpan.textContent = badge;
+
+  row.append(toggle, chk, idSpan, titleSpan, badgeSpan);
+  node.appendChild(row);
+
+  // children
+  let childrenDiv = null;
+  if (hasChildren) {
+    childrenDiv = document.createElement('div');
+    childrenDiv.className = 'tree-children';
+    // start expanded for level 0, collapsed for deeper
+    childrenDiv.style.display = level === 0 ? '' : 'none';
+    if (level === 0) toggle.textContent = '▼';
+
+    for (const sub of group.groups) {
+      childrenDiv.appendChild(buildTreeNode(sub, level + 1));
+    }
+    node.appendChild(childrenDiv);
+
+    // toggle expand/collapse
+    toggle.addEventListener('click', e => {
+      e.stopPropagation();
+      const open = childrenDiv.style.display !== 'none';
+      childrenDiv.style.display = open ? 'none' : '';
+      toggle.textContent = open ? '▶' : '▼';
+    });
+  }
+
+  // checkbox cascade: check/uncheck all descendants, then refresh ancestors
+  chk.addEventListener('change', e => {
+    const checked = chk.checked;
+    // cascade down
+    node.querySelectorAll('.tree-chk').forEach(c => {
+      c.checked = checked;
+      c.classList.remove('partial');
+    });
+    refreshAncestors(chk);
+    updatePickerCount();
+    updateRowHighlights($('picker-grid'));
+  });
+
+  return node;
+}
+
+// Propagate partial/checked state up to all ancestors of a given checkbox
+function refreshAncestors(chk){
+  // walk up: each .tree-node that is an ancestor of this node
+  let el = chk.closest('.tree-node')?.parentElement?.closest('.tree-node');
+  while (el) {
+    const parentChk = el.querySelector(':scope > .tree-row .tree-chk');
+    if (!parentChk) break;
+    const all = [...el.querySelectorAll('.tree-chk')].filter(c => c !== parentChk);
+    const totalChecked = all.filter(c => c.checked && !c.classList.contains('partial')).length;
+    const totalPartial = all.filter(c => c.classList.contains('partial')).length;
+    if (totalChecked === all.length && totalPartial === 0) {
+      parentChk.checked = true; parentChk.classList.remove('partial');
+    } else if (totalChecked === 0 && totalPartial === 0) {
+      parentChk.checked = false; parentChk.classList.remove('partial');
+    } else {
+      parentChk.checked = false; parentChk.classList.add('partial');
+    }
+    el = el.parentElement?.closest('.tree-node');
+  }
+}
+
+function updateRowHighlights(root){
+  root.querySelectorAll('.tree-row').forEach(row => {
+    const chk = row.querySelector('.tree-chk');
+    if (!chk) return;
+    row.classList.toggle('row-checked', chk.checked && !chk.classList.contains('partial'));
+    row.classList.toggle('row-partial', chk.classList.contains('partial'));
+  });
+}
+
+function renderGroupPicker(topGroups){
+  const sec = $('group-picker-section');
+  const wrap = $('picker-grid');
+  wrap.innerHTML = '';
+
+  if (!topGroups?.length) { sec.style.display = 'none'; return; }
+  sec.style.display = '';
+  $('picker-step-meta').textContent = `STEP 02 · ${topGroups.length} TOP-LEVEL GROUPS`;
+
+  for (const g of topGroups) wrap.appendChild(buildTreeNode(g, 0));
+  updatePickerCount();
+}
+
+function updatePickerCount(){
+  // count checked leaf-or-intermediate boxes (excluding partials)
+  const all = document.querySelectorAll('.tree-chk');
+  const checked = [...all].filter(c => c.checked && !c.classList.contains('partial'));
+  $('picker-count').textContent = `${checked.length} of ${all.length} groups selected`;
+}
+
+function getSelectedGroupIds(){
+  // return all IDs whose checkbox is checked OR partial
+  return new Set(
+    [...document.querySelectorAll('.tree-chk')]
+      .filter(c => c.checked || c.classList.contains('partial'))
+      .map(c => c.value)
+  );
+}
+
+// live-parse on textarea input (debounced 400ms)
+let parseTimer;
+function tryLiveParse(){
+  clearTimeout(parseTimer);
+  parseTimer = setTimeout(() => {
+    const raw = $('json-input').value.trim();
+    if (!raw) { $('group-picker-section').style.display = 'none'; return; }
+    try {
+      const parsed = JSON.parse(raw);
+      const catalog = parsed.catalog || parsed;
+      if (Array.isArray(catalog.groups)) renderGroupPicker(catalog.groups);
+    } catch { /* not valid yet */ }
+  }, 400);
+}
+$('json-input').addEventListener('input', tryLiveParse);
+
+$('picker-all').addEventListener('click', () => {
+  document.querySelectorAll('.tree-chk').forEach(c => { c.checked = true; c.classList.remove('partial'); });
+  updatePickerCount();
+  updateRowHighlights($('picker-grid'));
+});
+$('picker-none').addEventListener('click', () => {
+  document.querySelectorAll('.tree-chk').forEach(c => { c.checked = false; c.classList.remove('partial'); });
+  updatePickerCount();
+  updateRowHighlights($('picker-grid'));
+});
+$('picker-expand-all').addEventListener('click', () => {
+  $('picker-grid').querySelectorAll('.tree-children').forEach(c => { c.style.display = ''; });
+  $('picker-grid').querySelectorAll('.tree-toggle:not(.leaf)').forEach(t => { t.textContent = '▼'; });
+});
+$('picker-collapse-all').addEventListener('click', () => {
+  $('picker-grid').querySelectorAll('.tree-children').forEach(c => { c.style.display = 'none'; });
+  $('picker-grid').querySelectorAll('.tree-toggle:not(.leaf)').forEach(t => { t.textContent = '▶'; });
+});
+
+
+
+async function run(){
+  if (state.running) return;
+  state.result = null;
+  state.cancel = false;
+  state.running = true;
+  $('btn-run').disabled = true;
+  $('btn-copy').disabled = true;
+  $('btn-download').disabled = true;
+  $('output').classList.add('empty');
+  $('output').textContent = 'Processing…';
+  $('stats-section').style.display = 'none';
+
+  try {
+    const raw = $('json-input').value.trim();
+    if (!raw) throw new Error('No input — load a file or paste JSON');
+
+    showProgress('parse', 0, 4);
+    l.info('parsing JSON…');
+    let parsed;
+    try { parsed = JSON.parse(raw); }
+    catch (e) { throw new Error('Invalid JSON: ' + e.message); }
+    showProgress('parse', 1, 4);
+    await sleep(50);
+
+    // accept either { catalog: { groups } } or { groups } directly
+    const catalog = parsed.catalog || parsed;
+    const groups = catalog.groups;
+    if (!Array.isArray(groups)) throw new Error('Could not find catalog.groups[] — is this an OSCAL catalog?');
+    l.ok(`found ${groups.length} top-level group(s)`);
+    if (catalog.metadata?.title) l.debug('catalog title: ' + catalog.metadata.title);
+
+    // filter by group tree selection
+    const selectedIds = getSelectedGroupIds();
+    const totalSelected = selectedIds.size;
+    const totalGroups = document.querySelectorAll('.tree-chk').length;
+    if (totalGroups > 0 && totalSelected < totalGroups)
+      l.info(`group filter active: ${totalSelected} of ${totalGroups} groups selected`);
+    else if (totalGroups === 0)
+      l.debug('no picker — processing all groups');
+
+    showProgress('walk', 2, 4);
+    await sleep(50);
+
+    const opts = {
+      flatten:      $('opt-flatten').checked,
+      keepClass:    $('opt-keep-class').checked,
+      includeEmpty: $('opt-include-empty').checked,
+      pretty:       $('opt-pretty').checked,
+    };
+    l.debug(`options: flatten=${opts.flatten} keepClass=${opts.keepClass} includeEmpty=${opts.includeEmpty}`);
+
+    const stats = {
+      groupsSeen: 0,
+      controlsSeen: 0,
+      controlsWithStatement: 0,
+      controlsWithoutStatement: 0,
+    };
+
+    const filterIds = totalGroups > 0 ? selectedIds : null;
+
+    let resultGroups;
+    if (opts.flatten) {
+      l.info('walking groups (flat mode)…');
+      const acc = [];
+      for (const g of groups) pruneFlat(g, opts, stats, acc, filterIds);
+      resultGroups = acc;
+    } else {
+      l.info('walking groups (nested mode)…');
+      resultGroups = [];
+      for (const g of groups) {
+        const pg = pruneGroupRecursive(g, opts, stats, filterIds);
+        if (pg) resultGroups.push(pg);
+      }
+    }
+
+    showProgress('walk', 3, 4);
+    await sleep(50);
+
+    l.info(`groups walked: ${stats.groupsSeen}`);
+    l.info(`controls seen: ${stats.controlsSeen}`);
+    l.ok(  `controls with maturity-level-defined statement: ${stats.controlsWithStatement}`);
+    if (stats.controlsWithoutStatement) {
+      l.warn(`controls without maturity-level-defined statement: ${stats.controlsWithoutStatement}` +
+             (opts.includeEmpty ? ' (kept, statement=null)' : ' (dropped)'));
+    }
+
+    const out = { groups: resultGroups };
+    state.result = out;
+
+    showProgress('render', 4, 4);
+    const json = opts.pretty ? JSON.stringify(out, null, 2) : JSON.stringify(out);
+    renderOutput(json);
+    renderStats(stats, resultGroups, opts);
+
+    $('btn-copy').disabled = false;
+    $('btn-download').disabled = false;
+    $('output-meta').textContent = `STEP 04 · ${(json.length/1024).toFixed(1)} KB`;
+
+    l.ok(`done — output is ${(json.length/1024).toFixed(1)} kb`);
+    hideProgress();
+  } catch (e) {
+    l.err(e.message);
+    $('output').classList.add('empty');
+    $('output').textContent = 'Error: ' + e.message;
+    hideProgress();
+  } finally {
+    state.running = false;
+    $('btn-run').disabled = false;
+  }
+}
+
+// ---------- render ----------
+function syntaxHighlight(json){
+  return escapeHtml(json)
+    .replace(/("(?:[^"\\]|\\.)*")(\s*:)/g, '<span class="j-key">$1</span>$2')
+    .replace(/: ("(?:[^"\\]|\\.)*")/g, ': <span class="j-str">$1</span>')
+    .replace(/\b(true|false)\b/g, '<span class="j-bool">$1</span>')
+    .replace(/\bnull\b/g, '<span class="j-null">null</span>')
+    .replace(/: (-?\d+(?:\.\d+)?)/g, ': <span class="j-num">$1</span>');
+}
+function renderOutput(json){
+  const pre = $('output');
+  pre.classList.remove('empty');
+  // Highlight only if reasonably small to avoid hangs on huge payloads
+  if (json.length < 800_000) {
+    pre.innerHTML = syntaxHighlight(json);
+  } else {
+    pre.textContent = json;
+  }
+}
+function renderStats(stats, resultGroups, opts){
+  const sec = $('stats-section');
+  sec.style.display = '';
+  const flatGroupCount = countLeafGroups(resultGroups);
+  const totalControls = countControls(resultGroups);
+  $('stats').innerHTML = `
+    <div class="stat"><div class="stat-label">GROUPS WALKED</div><div class="stat-value">${stats.groupsSeen}</div></div>
+    <div class="stat"><div class="stat-label">GROUPS IN OUTPUT</div><div class="stat-value">${flatGroupCount}</div></div>
+    <div class="stat"><div class="stat-label">CONTROLS IN OUTPUT</div><div class="stat-value ok">${totalControls}</div></div>
+    <div class="stat"><div class="stat-label">WITH STATEMENT</div><div class="stat-value ok">${stats.controlsWithStatement}</div></div>
+    <div class="stat"><div class="stat-label">WITHOUT STATEMENT</div><div class="stat-value ${stats.controlsWithoutStatement ? 'warn' : ''}">${stats.controlsWithoutStatement}</div></div>
+  `;
+}
+function countLeafGroups(groups){
+  let n = 0;
+  const walk = arr => { for (const g of arr || []) {
+    if (g.controls?.length) n++;
+    if (g.groups?.length) walk(g.groups);
+  }};
+  walk(groups);
+  return n;
+}
+function countControls(groups){
+  let n = 0;
+  const walk = arr => { for (const g of arr || []) {
+    n += g.controls?.length || 0;
+    if (g.groups?.length) walk(g.groups);
+  }};
+  walk(groups);
+  return n;
+}
+
+// ---------- buttons ----------
+$('btn-run').addEventListener('click', run);
+$('btn-clear').addEventListener('click', () => {
+  $('group-picker-section').style.display = 'none';
+  $('picker-grid').innerHTML = '';
+  $('json-input').value = '';
+  $('output').classList.add('empty');
+  $('output').textContent = 'No output yet — load a catalog and click ▶ Prune catalog.';
+  $('output-meta').textContent = 'STEP 04 · RESULT';
+  $('stats-section').style.display = 'none';
+  $('btn-copy').disabled = true;
+  $('btn-download').disabled = true;
+  state.result = null;
+  l.info('cleared');
+});
+$('reset-cta').addEventListener('click', () => {
+  $('btn-clear').click();
+  $('log-body').innerHTML = '';
+  state.logCount = 0;
+  $('log-count').textContent = '0 lines';
+});
+$('btn-copy').addEventListener('click', async () => {
+  if (!state.result) return;
+  const opts = { pretty: $('opt-pretty').checked };
+  const json = opts.pretty ? JSON.stringify(state.result, null, 2) : JSON.stringify(state.result);
+  try {
+    await navigator.clipboard.writeText(json);
+    l.ok(`copied ${(json.length/1024).toFixed(1)} kb to clipboard`);
+  } catch (e) {
+    l.err('clipboard write failed: ' + e.message);
+  }
+});
+$('btn-download').addEventListener('click', () => {
+  if (!state.result) return;
+  const opts = { pretty: $('opt-pretty').checked };
+  const json = opts.pretty ? JSON.stringify(state.result, null, 2) : JSON.stringify(state.result);
+  const blob = new Blob([json], { type: 'application/json' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = 'pruned-catalog.json';
+  a.click();
+  URL.revokeObjectURL(url);
+  l.ok('download triggered: pruned-catalog.json');
+});
+
+// ---------- log header ----------
+$('log-clear').addEventListener('click', () => {
+  $('log-body').innerHTML = '';
+  state.logCount = 0;
+  $('log-count').textContent = '0 lines';
+});
+$('log-autoscroll').addEventListener('change', e => {
+  state.autoscroll = e.target.checked;
+});
+
+// ---------- splitter ----------
+function initSplitter(){
+  const splitter = $('splitter');
+  const rail = $('left-rail');
+  splitter.addEventListener('mousedown', e => {
+    const startX = e.clientX, startW = rail.offsetWidth;
+    const move = m => {
+      const w = Math.max(180, Math.min(360, startW + m.clientX - startX));
+      rail.style.width = w + 'px';
+      localStorage.setItem('railWidth', w);
+    };
+    const up = () => {
+      window.removeEventListener('mousemove', move);
+      window.removeEventListener('mouseup', up);
+    };
+    window.addEventListener('mousemove', move);
+    window.addEventListener('mouseup', up);
+  });
+  const saved = localStorage.getItem('railWidth');
+  if (saved) rail.style.width = saved + 'px';
+}
+initSplitter();
+
+// ---------- nav clicks (purely cosmetic since it's one page) ----------
+document.querySelectorAll('.nav-item').forEach(item => {
+  item.addEventListener('click', () => {
+    document.querySelectorAll('.nav-item').forEach(i => i.classList.remove('active'));
+    item.classList.add('active');
+    const label = item.textContent.trim().toLowerCase();
+    const map = {
+      'source': '.section:nth-child(1)',
+      'options': '.section:nth-child(2)',
+      'run': '.section:nth-child(2)',
+      'results': '.section:nth-of-type(4)',
+    };
+    for (const k of Object.keys(map)) {
+      if (label.includes(k)) {
+        const t = document.querySelector(map[k]);
+        if (t) t.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        break;
+      }
+    }
+  });
+});
+
+// ---------- boot ----------
+l.info('OSCAL Pruner v1.2.0 ready');
+l.debug('runs entirely in your browser — nothing is uploaded');
+</script>
+</body>
+</html>
