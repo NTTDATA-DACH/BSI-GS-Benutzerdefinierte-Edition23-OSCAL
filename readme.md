@@ -19,6 +19,18 @@ Das System ist als serverloser **Google Cloud Run Job** konzipiert und arbeitet 
 
 # Bereitgestellte Werkzeuge
 
+## OSCAL Catalog Pruner
+**Zweck:** Gezielte Reduzierung großer OSCAL-Kataloge auf das Wesentliche. 
+
+Oftmals werden für spezifische Aufgaben nicht alle, sondern nur ausgewählte Bausteine oder Praktiken aus einem umfassenden Katalog benötigt. Mit dem **OSCAL Catalog Pruner** lassen sich große JSON-Kataloge direkt im Browser filtern. Über eine intuitive Baumstruktur können exakt die benötigten Gruppen ausgewählt und als verkleinertes, bereinigtes JSON exportiert werden. Das minimiert den Daten-Overhead für Folgeprozesse massiv. 
+
+**Eigenschaften:**
+- **Datenschutz by Design:** 100% lokale Verarbeitung im Browser – keine API-Aufrufe, keine Uploads.
+- **Flexibilität:** Optionales "Flattening" von verschachtelten Gruppenstrukturen.
+- **Effizienz:** Schneller Export des passgenauen JSON-Auszugs für spezifische Teil-Audits oder Analysen.
+
+
+
 ## Automatische Erzeugung von OSCAL-Komponenten aus dem BSI-Katalog
 
 Das `g2oscal`-Werkzeug ist als **einfacher Weg zur Konvertierung von BSI-Grundschutz-Bausteinen in einen deutschen OSCAL-Katalog** konzipiert. Es verwendet die originalen deutschen PDFs und erzeugt eine hochwertige, angereicherte deutsche JSON-Datei.
