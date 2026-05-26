@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>OSCAL Catalog Pruner — v1.2.0</title>
+<title>OSCAL Catalog Pruner — v1.3.0</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -159,6 +159,49 @@ body{
 .dropzone-hint{font-size:12px;color:var(--text-tertiary)}
 .dropzone-hint code{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--text-secondary);background:var(--bg-elev-2);padding:1px 6px;border-radius:4px}
 input[type=file]{display:none}
+
+/* catalog preset loader */
+.catalog-loader{
+  margin-top:14px;
+  padding:14px;
+  display:flex;
+  align-items:center;
+  gap:12px;
+  flex-wrap:wrap;
+}
+.catalog-loader-label{
+  font-family:'JetBrains Mono',monospace;
+  font-size:10px;
+  letter-spacing:1.5px;
+  color:var(--text-quiet);
+  text-transform:uppercase;
+}
+.catalog-select{
+  flex:1 1 320px;
+  min-width:220px;
+  color:var(--text-primary);
+  background:var(--bg-elev-2);
+  border:1px solid var(--border-2);
+  border-radius:8px;
+  padding:10px 12px;
+  font:inherit;
+  outline:none;
+}
+.catalog-select:focus{
+  border-color:oklch(0.7 0.18 300/.6);
+  box-shadow:0 0 0 3px oklch(0.7 0.18 300/.15);
+}
+.catalog-select option{background:var(--bg-deep);color:var(--text-primary)}
+.catalog-loader-status{
+  width:100%;
+  min-height:18px;
+  font-family:'JetBrains Mono',monospace;
+  font-size:11px;
+  color:var(--text-tertiary);
+  word-break:break-word;
+}
+.catalog-loader-status.ok{color:var(--green)}
+.catalog-loader-status.err{color:var(--red)}
 
 /* textarea */
 textarea{
@@ -423,7 +466,7 @@ button:disabled{opacity:.4;cursor:not-allowed}
       <div class="brand-mark">◬</div>
       <div>
         <span class="brand-name">OSCAL Pruner</span>
-        <span class="brand-version">v1.2.0</span>
+        <span class="brand-version">v1.3.0</span>
       </div>
     </div>
     <div class="topbar-spacer"></div>
@@ -446,7 +489,7 @@ button:disabled{opacity:.4;cursor:not-allowed}
       <div class="rail-spacer"></div>
       <div class="rail-cta" id="reset-cta">+ NEW SESSION</div>
       <div style="margin-top:14px;font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:1.2px;color:var(--text-quiet);text-align:center">
-        100% LOCAL · NO API CALLS
+        LOCAL PROCESSING · OPTIONAL FETCH
       </div>
     </aside>
 
@@ -468,6 +511,16 @@ button:disabled{opacity:.4;cursor:not-allowed}
             <div class="dropzone-title">Drop OSCAL catalog file or click to browse</div>
             <div class="dropzone-hint">accepts <code>.json</code> · or paste below</div>
             <input type="file" id="file-input" accept=".json,application/json">
+          </div>
+
+          <div class="catalog-loader glass" aria-label="Catalog preset loader">
+            <span class="catalog-loader-label">Preset</span>
+            <select class="catalog-select" id="catalog-select">
+              <option value="bsi-gs-2023-custom">BSI IT-Grundschutz 2023 · Benutzerdefinierte Edition</option>
+              <option value="bsi-gs-2023-standard">BSI IT-Grundschutz 2023 · Standard</option>
+            </select>
+            <button class="btn-secondary" id="btn-load-catalog" type="button">⤓ Load catalog</button>
+            <div class="catalog-loader-status" id="catalog-loader-status">Fetches the selected OSCAL JSON from GitHub and loads it into the local pruner.</div>
           </div>
 
           <div style="margin-top:14px">
@@ -589,7 +642,7 @@ button:disabled{opacity:.4;cursor:not-allowed}
 
 <script>
 // ============================================================
-// OSCAL Catalog Pruner v1.0.0 — pure client-side, no API calls
+// OSCAL Catalog Pruner v1.3.0 — pure client-side, optional catalog fetch
 // ============================================================
 
 const $ = id => document.getElementById(id);
@@ -601,6 +654,17 @@ const state = {
   logCount: 0,
   autoscroll: true,
   result: null,
+};
+
+const CATALOG_PRESETS = {
+  'bsi-gs-2023-custom': {
+    label: 'BSI IT-Grundschutz 2023 · Benutzerdefinierte Edition',
+    url: 'https://raw.githubusercontent.com/NTTDATA-DACH/BSI-GS-Benutzerdefinierte-Edition23-OSCAL/main/BS_GK_OSCAL_JSON_DATA/BSI_GS_OSCAL_current_2023_benutzerdefinierte.json',
+  },
+  'bsi-gs-2023-standard': {
+    label: 'BSI IT-Grundschutz 2023 · Standard',
+    url: 'https://raw.githubusercontent.com/NTTDATA-DACH/BSI-GS-Benutzerdefinierte-Edition23-OSCAL/main/BS_GK_OSCAL_JSON_DATA/BSI_GS_OSCAL_current_2023.json',
+  },
 };
 
 // ---------- log ----------
@@ -668,6 +732,60 @@ function loadFile(f){
   reader.onerror = () => l.err(`failed to read ${f.name}`);
   reader.readAsText(f);
 }
+
+function setCatalogLoaderStatus(msg, kind = ''){
+  const el = $('catalog-loader-status');
+  el.textContent = msg;
+  el.classList.toggle('ok', kind === 'ok');
+  el.classList.toggle('err', kind === 'err');
+}
+
+async function loadRemoteCatalog(){
+  const btn = $('btn-load-catalog');
+  const selected = CATALOG_PRESETS[$('catalog-select').value];
+  if (!selected) return;
+
+  btn.disabled = true;
+  const previousLabel = btn.textContent;
+  btn.textContent = 'Loading…';
+  setCatalogLoaderStatus(`Loading ${selected.label}…`);
+  l.info(`fetching preset catalog: ${selected.label}`);
+
+  try {
+    const res = await fetch(selected.url, { cache: 'no-store' });
+    if (!res.ok) throw new Error(`GitHub returned HTTP ${res.status}`);
+
+    const text = await res.text();
+    let parsed;
+    try { parsed = JSON.parse(text); }
+    catch (e) { throw new Error('Fetched content is not valid JSON: ' + e.message); }
+
+    const catalog = parsed.catalog || parsed;
+    if (!Array.isArray(catalog.groups)) throw new Error('Fetched JSON does not contain catalog.groups[]');
+
+    $('json-input').value = JSON.stringify(parsed, null, 2);
+    $('output').classList.add('empty');
+    $('output').textContent = 'Catalog loaded — select groups and click ▶ Prune catalog.';
+    $('output-meta').textContent = 'STEP 04 · RESULT';
+    $('stats-section').style.display = 'none';
+    $('btn-copy').disabled = true;
+    $('btn-download').disabled = true;
+    state.result = null;
+
+    renderGroupPicker(catalog.groups);
+    const title = catalog.metadata?.title ? ` · ${catalog.metadata.title}` : '';
+    setCatalogLoaderStatus(`Loaded ${selected.label}${title} (${(text.length/1024).toFixed(1)} KB)`, 'ok');
+    l.ok(`loaded preset catalog: ${(text.length/1024).toFixed(1)} kb`);
+  } catch (e) {
+    setCatalogLoaderStatus(`Could not load catalog: ${e.message}. If your browser blocks the request, open the GitHub file and download/upload it instead.`, 'err');
+    l.err('catalog preset load failed: ' + e.message);
+  } finally {
+    btn.textContent = previousLabel;
+    btn.disabled = false;
+  }
+}
+
+$('btn-load-catalog').addEventListener('click', loadRemoteCatalog);
 
 // ---------- pruning core ----------
 const STATEMENT_CLASS = 'maturity-level-defined';
@@ -1102,6 +1220,7 @@ $('btn-clear').addEventListener('click', () => {
   $('group-picker-section').style.display = 'none';
   $('picker-grid').innerHTML = '';
   $('json-input').value = '';
+  setCatalogLoaderStatus('Fetches the selected OSCAL JSON from GitHub and loads it into the local pruner.');
   $('output').classList.add('empty');
   $('output').textContent = 'No output yet — load a catalog and click ▶ Prune catalog.';
   $('output-meta').textContent = 'STEP 04 · RESULT';
@@ -1198,8 +1317,8 @@ document.querySelectorAll('.nav-item').forEach(item => {
 });
 
 // ---------- boot ----------
-l.info('OSCAL Pruner v1.2.0 ready');
-l.debug('runs entirely in your browser — nothing is uploaded');
+l.info('OSCAL Pruner v1.3.0 ready');
+l.debug('runs in your browser — files are not uploaded; presets are fetched from GitHub when requested');
 </script>
 </body>
 </html>
