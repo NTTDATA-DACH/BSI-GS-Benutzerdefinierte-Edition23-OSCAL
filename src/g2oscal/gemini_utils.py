@@ -13,6 +13,14 @@ from config import (GCP_PROJECT_ID, MAX_RETRIES, TEST_MODE, BUCKET_NAME,
 
 logger = logging.getLogger(__name__)
 
+
+class MaxTokensError(Exception):
+    """Raised when a response is truncated (finish_reason == MAX_TOKENS).
+
+    Retrying is pointless — the same prompt will truncate again. The caller
+    must chunk the input or raise max_output_tokens instead.
+    """
+
 # --- Initialization ---
 try:
     with open(DISCOVERY_ENRICHMENT_PROMPT_FILE, 'r', encoding='utf-8') as f: discovery_enrichment_prompt_text = f.read()
@@ -48,6 +56,10 @@ async def call_gemini_api(prompt, schema_to_validate):
             if not response.candidates or response.candidates[0].finish_reason != FinishReason.STOP:
                 reason = "Unknown"
                 if response.candidates: reason = response.candidates[0].finish_reason.name
+                if reason == "MAX_TOKENS":
+                    raise MaxTokensError(
+                        "Response truncated (MAX_TOKENS) — chunk the input or raise max_output_tokens."
+                    )
                 raise ValueError(f"API call failed or was blocked. Reason: {reason}")
 
             cleaned_json_text = clean_and_extract_json(response.text)
@@ -62,6 +74,10 @@ async def call_gemini_api(prompt, schema_to_validate):
 
             return data # Success
 
+        except MaxTokensError as e:
+            # Deterministic failure — retrying with the same prompt cannot help.
+            logging.error(f"Gemini API call truncated; not retrying. Error: {e}")
+            raise
         except Exception as e:
             if attempt + 1 < MAX_RETRIES:
                 logging.warning(f"Gemini API call attempt {attempt + 1}/{MAX_RETRIES} failed. Retrying... Error: {e}")
@@ -92,8 +108,12 @@ async def process_baustein_pdf(blob, semaphore, build_oscal_control_func):
                 logging.debug(f"TEST MODE: Sliced requirements to {len(requirements_to_process)}.")
 
             if not requirements_to_process:
-                logging.info(f"  └─ Successfully finished processing {blob.name} (no requirements for generation stage).")
-                return discovery_enrichment_data.get("main_group_id"), {"id": discovery_enrichment_data.get("baustein_id"),"title": discovery_enrichment_data.get("baustein_title"),"class": "baustein","parts": discovery_enrichment_data.get("contextual_parts", []),"controls": []}
+                # Stage 1 returning zero requirements is a discovery failure
+                # (truncation, safety block, or model miss), not a success — a
+                # Baustein with no Anforderungen must not be merged silently.
+                raise ValueError(
+                    f"Discovery stage returned no requirements for {blob.name}; flagging for re-run."
+                )
 
             # STAGE 2: Generation of Maturity Prose
             logging.debug(f"Stage 2: Generating maturity prose for {len(requirements_to_process)} requirements...")
@@ -105,13 +125,23 @@ async def process_baustein_pdf(blob, semaphore, build_oscal_control_func):
             prose_map = {item['id']: item for item in generation_data.get('generated_requirements', [])}
 
             final_controls = []
+            missing_ids = []
             for req_stub in requirements_to_process:
                 req_id = req_stub['id']
                 if req_id in prose_map:
                     # The stub itself now contains the enrichment data (class, practice, etc.)
                     final_controls.append(build_oscal_control_func(req_stub, prose_map[req_id]))
                 else:
-                    logging.warning(f"Skipping control '{req_id}' due to missing data in Generation stage.")
+                    missing_ids.append(req_id)
+
+            # Completeness gate: never write a Baustein with fewer Anforderungen
+            # than were discovered. Fail loudly so it is counted as failed and
+            # re-run, rather than silently merged as partial (issues.md #1/#2).
+            if missing_ids:
+                raise ValueError(
+                    f"Generation stage incomplete: {len(missing_ids)}/{len(requirements_to_process)} "
+                    f"requirements missing prose (e.g. {missing_ids[:5]}). Refusing to write a partial Baustein."
+                )
 
             final_baustein_group = {
                 "id": discovery_enrichment_data.get("baustein_id"), "title": discovery_enrichment_data.get("baustein_title"),
