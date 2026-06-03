@@ -22,118 +22,118 @@
             "implemented-requirements": [
               {
                 "uuid": "c9d73a26-c5fa-484d-81ed-759f0aa2e85b",
-                "control-id": "sys.1.8.a1",
-                "description": "Base implementation for control sys.1.8.a1."
+                "control-id": "SYS.1.8.A1",
+                "description": "Base implementation for control SYS.1.8.A1."
               },
               {
                 "uuid": "c4f60b0e-1ccc-4690-b26b-2ac6f7b94b3b",
-                "control-id": "sys.1.8.a2",
-                "description": "Base implementation for control sys.1.8.a2."
+                "control-id": "SYS.1.8.A2",
+                "description": "Base implementation for control SYS.1.8.A2."
               },
               {
                 "uuid": "be9de997-830d-4ffc-af7d-76bf2e846cf2",
-                "control-id": "sys.1.8.a4",
-                "description": "Base implementation for control sys.1.8.a4."
+                "control-id": "SYS.1.8.A4",
+                "description": "Base implementation for control SYS.1.8.A4."
               },
               {
                 "uuid": "a59411eb-6184-4304-a716-ad873d7d6889",
-                "control-id": "sys.1.8.a6",
-                "description": "Base implementation for control sys.1.8.a6."
+                "control-id": "SYS.1.8.A6",
+                "description": "Base implementation for control SYS.1.8.A6."
               },
               {
                 "uuid": "5450a805-a30c-4a29-83e0-0036313602fb",
-                "control-id": "sys.1.8.a7",
-                "description": "Base implementation for control sys.1.8.a7."
+                "control-id": "SYS.1.8.A7",
+                "description": "Base implementation for control SYS.1.8.A7."
               },
               {
                 "uuid": "fe67a978-5c9b-4fe1-be45-32ce5845adfb",
-                "control-id": "sys.1.8.a8",
-                "description": "Base implementation for control sys.1.8.a8."
+                "control-id": "SYS.1.8.A8",
+                "description": "Base implementation for control SYS.1.8.A8."
               },
               {
                 "uuid": "6d922382-64a9-43ff-a616-31bf0c8f1961",
-                "control-id": "sys.1.8.a9",
-                "description": "Base implementation for control sys.1.8.a9."
+                "control-id": "SYS.1.8.A9",
+                "description": "Base implementation for control SYS.1.8.A9."
               },
               {
                 "uuid": "70bfbef6-2af6-4afb-96e7-959ed293806f",
-                "control-id": "sys.1.8.a10",
-                "description": "Base implementation for control sys.1.8.a10."
+                "control-id": "SYS.1.8.A10",
+                "description": "Base implementation for control SYS.1.8.A10."
               },
               {
                 "uuid": "410b3aa1-134d-4795-b129-77ba56625b88",
-                "control-id": "sys.1.8.a11",
-                "description": "Base implementation for control sys.1.8.a11."
+                "control-id": "SYS.1.8.A11",
+                "description": "Base implementation for control SYS.1.8.A11."
               },
               {
                 "uuid": "8ca6ce67-7213-4561-a1c5-b809e9fc5a52",
-                "control-id": "sys.1.8.a13",
-                "description": "Base implementation for control sys.1.8.a13."
+                "control-id": "SYS.1.8.A13",
+                "description": "Base implementation for control SYS.1.8.A13."
               },
               {
                 "uuid": "43b7311c-9b69-4b66-b35c-caf6d5e16086",
-                "control-id": "sys.1.8.a14",
-                "description": "Base implementation for control sys.1.8.a14."
+                "control-id": "SYS.1.8.A14",
+                "description": "Base implementation for control SYS.1.8.A14."
               },
               {
                 "uuid": "1618aa8a-bdd5-4274-9cf2-bb7223fb15fd",
-                "control-id": "sys.1.8.a15",
-                "description": "Base implementation for control sys.1.8.a15."
+                "control-id": "SYS.1.8.A15",
+                "description": "Base implementation for control SYS.1.8.A15."
               },
               {
                 "uuid": "ff6165ae-f7c5-4a17-94b9-760c64de5358",
-                "control-id": "sys.1.8.a16",
-                "description": "Base implementation for control sys.1.8.a16."
+                "control-id": "SYS.1.8.A16",
+                "description": "Base implementation for control SYS.1.8.A16."
               },
               {
                 "uuid": "881e4f47-7656-43e6-b04b-918127f185c5",
-                "control-id": "sys.1.8.a17",
-                "description": "Base implementation for control sys.1.8.a17."
+                "control-id": "SYS.1.8.A17",
+                "description": "Base implementation for control SYS.1.8.A17."
               },
               {
                 "uuid": "1de9fac9-9faf-47b3-aa50-1e2b1166e756",
-                "control-id": "sys.1.8.a18",
-                "description": "Base implementation for control sys.1.8.a18."
+                "control-id": "SYS.1.8.A18",
+                "description": "Base implementation for control SYS.1.8.A18."
               },
               {
                 "uuid": "6fdbd69c-acff-42e6-938a-0bd564c28f8c",
-                "control-id": "sys.1.8.a19",
-                "description": "Base implementation for control sys.1.8.a19."
+                "control-id": "SYS.1.8.A19",
+                "description": "Base implementation for control SYS.1.8.A19."
               },
               {
                 "uuid": "ebe508fc-9873-415e-8b17-41f2840fed01",
-                "control-id": "sys.1.8.a20",
-                "description": "Base implementation for control sys.1.8.a20."
+                "control-id": "SYS.1.8.A20",
+                "description": "Base implementation for control SYS.1.8.A20."
               },
               {
                 "uuid": "181acbf1-226b-40f1-8904-96e7ad2cd893",
-                "control-id": "sys.1.8.a21",
-                "description": "Base implementation for control sys.1.8.a21."
+                "control-id": "SYS.1.8.A21",
+                "description": "Base implementation for control SYS.1.8.A21."
               },
               {
                 "uuid": "9f087a08-2b8c-4491-b558-e6183a9e277a",
-                "control-id": "sys.1.8.a22",
-                "description": "Base implementation for control sys.1.8.a22."
+                "control-id": "SYS.1.8.A22",
+                "description": "Base implementation for control SYS.1.8.A22."
               },
               {
                 "uuid": "cc3ebdd6-8a2a-4771-b1bc-2cff58d71f83",
-                "control-id": "sys.1.8.a23",
-                "description": "Base implementation for control sys.1.8.a23."
+                "control-id": "SYS.1.8.A23",
+                "description": "Base implementation for control SYS.1.8.A23."
               },
               {
                 "uuid": "93947d38-ab97-43b9-a602-4dc5ea26b435",
-                "control-id": "sys.1.8.a24",
-                "description": "Base implementation for control sys.1.8.a24."
+                "control-id": "SYS.1.8.A24",
+                "description": "Base implementation for control SYS.1.8.A24."
               },
               {
                 "uuid": "82df3da3-094a-4c06-9b35-e6edca674ed8",
-                "control-id": "sys.1.8.a25",
-                "description": "Base implementation for control sys.1.8.a25."
+                "control-id": "SYS.1.8.A25",
+                "description": "Base implementation for control SYS.1.8.A25."
               },
               {
                 "uuid": "0802b735-387c-4245-b1b7-fe18093d63b3",
-                "control-id": "sys.1.8.a26",
-                "description": "Base implementation for control sys.1.8.a26."
+                "control-id": "SYS.1.8.A26",
+                "description": "Base implementation for control SYS.1.8.A26."
               }
             ]
           },

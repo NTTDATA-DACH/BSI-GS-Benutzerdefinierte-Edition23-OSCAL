@@ -34,7 +34,7 @@
           "type": "object",
           "required": ["id", "title", "prose", "props", "class", "practice", "effective_on_c", "effective_on_i", "effective_on_a"],
           "properties": {
-            "id": { "type": "string" },
+            "id": { "type": "string", "pattern": "^[A-Z]+(\\.[0-9A-Za-z]+)+\\.A[0-9]+$" },
             "title": { "type": "string" },
             "prose": { "type": "string" },
             "props": {

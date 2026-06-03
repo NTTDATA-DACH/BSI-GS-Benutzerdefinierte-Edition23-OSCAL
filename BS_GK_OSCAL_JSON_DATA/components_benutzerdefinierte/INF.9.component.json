@@ -22,63 +22,63 @@
             "implemented-requirements": [
               {
                 "uuid": "9e4edf3e-d69a-4e13-b8d0-b197591ba787",
-                "control-id": "inf-9-a1",
-                "description": "Base implementation for control inf-9-a1."
+                "control-id": "INF.9.A1",
+                "description": "Base implementation for control INF.9.A1."
               },
               {
                 "uuid": "80caa7f7-52d9-4833-a329-6a08146bdde7",
-                "control-id": "inf-9-a2",
-                "description": "Base implementation for control inf-9-a2."
+                "control-id": "INF.9.A2",
+                "description": "Base implementation for control INF.9.A2."
               },
               {
                 "uuid": "81e4a3e6-9153-43fe-9676-6efc650874a2",
-                "control-id": "inf-9-a3",
-                "description": "Base implementation for control inf-9-a3."
+                "control-id": "INF.9.A3",
+                "description": "Base implementation for control INF.9.A3."
               },
               {
                 "uuid": "9feae55b-ca3e-46bd-bd7a-f6a3f4fd1e7d",
-                "control-id": "inf-9-a4",
-                "description": "Base implementation for control inf-9-a4."
+                "control-id": "INF.9.A4",
+                "description": "Base implementation for control INF.9.A4."
               },
               {
                 "uuid": "93ea9b2a-cff7-48c8-be22-6d1080321f7b",
-                "control-id": "inf-9-a5",
-                "description": "Base implementation for control inf-9-a5."
+                "control-id": "INF.9.A5",
+                "description": "Base implementation for control INF.9.A5."
               },
               {
                 "uuid": "0f880182-b0e4-49ea-ae9a-64e22913815b",
-                "control-id": "inf-9-a6",
-                "description": "Base implementation for control inf-9-a6."
+                "control-id": "INF.9.A6",
+                "description": "Base implementation for control INF.9.A6."
               },
               {
                 "uuid": "df5289f4-24ce-4092-9d4d-16d43d553def",
-                "control-id": "inf-9-a7",
-                "description": "Base implementation for control inf-9-a7."
+                "control-id": "INF.9.A7",
+                "description": "Base implementation for control INF.9.A7."
               },
               {
                 "uuid": "e9794deb-6eb4-4a3e-a253-a91aea427d81",
-                "control-id": "inf-9-a8",
-                "description": "Base implementation for control inf-9-a8."
+                "control-id": "INF.9.A8",
+                "description": "Base implementation for control INF.9.A8."
               },
               {
                 "uuid": "359a9ea9-2019-4d6d-bbf7-255639f1e382",
-                "control-id": "inf-9-a9",
-                "description": "Base implementation for control inf-9-a9."
+                "control-id": "INF.9.A9",
+                "description": "Base implementation for control INF.9.A9."
               },
               {
                 "uuid": "ebd8ae68-a04e-462d-9c66-a16444d1ecd4",
-                "control-id": "inf-9-a10",
-                "description": "Base implementation for control inf-9-a10."
+                "control-id": "INF.9.A10",
+                "description": "Base implementation for control INF.9.A10."
               },
               {
                 "uuid": "c63a9eec-1e04-4bcb-b914-8b293afb032e",
-                "control-id": "inf-9-a11",
-                "description": "Base implementation for control inf-9-a11."
+                "control-id": "INF.9.A11",
+                "description": "Base implementation for control INF.9.A11."
               },
               {
                 "uuid": "9592fc92-e6b2-41a0-a587-16475cff0b8f",
-                "control-id": "inf-9-a12",
-                "description": "Base implementation for control inf-9-a12."
+                "control-id": "INF.9.A12",
+                "description": "Base implementation for control INF.9.A12."
               }
             ]
           },
