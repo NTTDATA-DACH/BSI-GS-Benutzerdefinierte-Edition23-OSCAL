@@ -116,11 +116,28 @@ async def main():
     batch_results = await asyncio.gather(*tasks)
     results = list(chain.from_iterable(batch_results))
 
+    # Map results back to controls by id, NOT by position: the model may
+    # reorder or drop items, and a positional zip would silently write a
+    # control's practice/CIA/class onto the wrong control (issues.md #3).
+    results_by_id = {}
+    for generated_data in results:
+        if not generated_data:
+            continue
+        gen_id = generated_data.get("id")
+        if not gen_id:
+            logger.warning("Skipping a generated result with no 'id'.")
+            continue
+        if gen_id in results_by_id:
+            logger.warning(f"Duplicate generated result for control id '{gen_id}'. Keeping the first.")
+            continue
+        results_by_id[gen_id] = generated_data
+
     updated_controls_count = 0
     props_ns = "https://www.bsi.bund.de/ns/grundschutz"
     props_to_manage = ["practice", "effective_on_c", "effective_on_i", "effective_on_a"]
 
-    for control, generated_data in zip(all_controls, results):
+    for control in all_controls:
+        generated_data = results_by_id.get(control.get("id"))
         if generated_data:
             # Update the control's class directly
             control["class"] = generated_data["class"]

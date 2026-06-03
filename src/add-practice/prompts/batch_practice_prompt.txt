@@ -35,9 +35,10 @@ You are an expert in IT security frameworks and compliance, specifically NIST SP
     - `Operational`: The control is primarily implemented and executed by people.
     - `Management`: The control focuses on the management of risk and information systems.
 
-You will receive a JSON array of controls. Your response MUST be a single, valid JSON array of objects. Each object must correspond to a control from the input array, maintaining the original order.
+You will receive a JSON array of controls. Your response MUST be a single, valid JSON array of objects. There must be exactly one object per input control, and you MUST return an object for every input control.
 
-Each object in your response array must contain exactly five keys:
+Each object in your response array must contain exactly six keys:
+- `id`: The control's `id`, copied VERBATIM from the corresponding input control. Do not alter, reformat, or change the casing. This is used to map your answer back to the correct control.
 - `class`: The string value for the control class ("Technical", "Operational", or "Management").
 - `practice`: The string ID of the chosen practice (e.g., "RISK").
 - `effective_on_c`: A boolean (true/false).

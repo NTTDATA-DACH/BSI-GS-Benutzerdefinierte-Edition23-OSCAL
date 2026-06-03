@@ -39,8 +39,8 @@ def validate_env_vars():
 def setup_logging():
     """Configures the root logger based on the TEST_MODE setting."""
     base_level = logging.INFO
-    # Set detailed step-by-step logs to INFO in TEST_MODE, and DEBUG in production
-    verbose_level = logging.INFO if TEST_MODE else logging.DEBUG
+    # Detailed step-by-step logs at DEBUG in TEST_MODE, INFO in production.
+    verbose_level = logging.DEBUG if TEST_MODE else logging.INFO
 
     logging.basicConfig(
         level=base_level,

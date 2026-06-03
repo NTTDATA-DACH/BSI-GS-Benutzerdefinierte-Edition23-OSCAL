@@ -7,6 +7,7 @@
     "items": {
       "type": "object",
       "required": [
+        "id",
         "class",
         "practice",
         "effective_on_c",
@@ -14,6 +15,10 @@
         "effective_on_a"
       ],
       "properties": {
+        "id": {
+            "description": "The control id, echoed verbatim from the input so results map back to the correct control.",
+            "type": "string"
+        },
         "class": {
             "description": "The standard NIST class of the control.",
             "type": "string",
