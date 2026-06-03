@@ -8,6 +8,8 @@ GCP_PROJECT_ID = os.environ.get("GCP_PROJECT_ID")
 BUCKET_NAME = os.environ.get("BUCKET_NAME")
 SOURCE_PREFIX = os.environ.get("SOURCE_PREFIX")
 EXISTING_JSON_GCS_PATH = os.environ.get("EXISTING_JSON_GCS_PATH")
+# Vertex AI region (env-overridable; was hardcoded to us-central1 in the old SDK init).
+REGION = os.environ.get("REGION", "us-central1")
 
 # --- Static Configuration ---
 FINAL_RESULT_PREFIX = "results/"
@@ -20,6 +22,17 @@ GENERATION_STUB_SCHEMA_FILE = "generation_stub_schema.json"
 # --- Concurrency & Retry Config ---
 CONCURRENT_REQUEST_LIMIT = 5
 MAX_RETRIES = 5
+
+
+class _AppConfig:
+    """Object-style view of the config consumed by AiClient (google-genai)."""
+    gcp_project_id = GCP_PROJECT_ID
+    region = REGION
+    is_test_mode = TEST_MODE
+
+
+# Singleton consumed by ai_client.AiClient via `from config import app_config`.
+app_config = _AppConfig()
 
 def validate_env_vars():
     """Validates that all required environment variables are set."""
