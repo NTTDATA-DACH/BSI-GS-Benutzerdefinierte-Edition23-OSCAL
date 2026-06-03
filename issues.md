@@ -12,6 +12,21 @@ and the new `ai_client.py`.
 
 ---
 
+## ✅ Resolution log (updated 2026-06-03)
+
+| Finding | Status | Commit |
+|---|---|---|
+| #12/#2 Slugified control IDs (SYS.1.8/INF.5/INF.9) | **Fixed** — 5908 tokens normalized across 33 files (catalogs, 3 components, 28 translations) via `src/tools/normalize_control_ids.py`; verified no slugs remain, JSON valid | `eb840c4` |
+| #13 No `pattern` validation on requirement `id` | **Fixed** — `pattern` added to `discovery_enrichment_stub_schema.json`; `canonical_control_id()` in `g2oscal/main.py` derives the id from the title and raises on malformed | `eb840c4` |
+| #3 add-practice position-based mapping | **Fixed** — model now echoes `id`; results mapped by id; `gemini_utils` verifies the returned id-set and retries on mismatch | `f05021d` |
+| #10 g2oscal forced DEBUG logging; add-practice inverted level | **Fixed** | `f05021d` |
+| #1/#2 Missing/partial Anforderungen | **Partially fixed** — completeness gate (raise on missing prose), empty-discovery treated as failure. *Stage-2 chunking still TODO.* | `6bb60a2` |
+| #4/#7 Deprecated SDK; hardcoded model/region (g2oscal) | **Fixed for g2oscal** — adopted `ai_client.py` (google-genai); model/region/tokens now env-overridable (`constants.py`, `REGION`). Other 3 services still on old SDK. | `a9da51f` |
+
+**Still open:** #5/#6 (ai_client retry set / `response_schema` $ref — left as-is per owner: client is working code from another project), #8 safety settings in remaining services, #9 quality_control (`MAX_TOKENS`/grounding), #11 misc nits, SDK migration for add-practice/oscal_components/translate_oscal, dependency pinning, and **re-running** SYS.1.8/INF.5/INF.9 + regenerating their components/translations.
+
+---
+
 ## 0. TL;DR — top findings
 
 1. **Why Bausteine miss Anforderungen (S1):** the `g2oscal` generation is a *single
