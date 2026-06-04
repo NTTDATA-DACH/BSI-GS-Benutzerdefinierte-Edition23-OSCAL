@@ -14,7 +14,7 @@ REPO_ROOT = PACKAGE_DIR.parents[1]
 TEST_MODE = os.environ.get("TEST", "false").lower() == 'true'
 GCP_PROJECT_ID = os.environ.get("GCP_PROJECT_ID")
 # Vertex AI region (env-overridable; was hardcoded to us-central1 in the old SDK init).
-REGION = os.environ.get("REGION", "us-central1")
+REGION = os.environ.get("REGION", "global")
 
 # --- Local I/O configuration (replaces the old GCS bucket plumbing) ---
 # Source PDFs are read from these directories (':'-separated, env-overridable).

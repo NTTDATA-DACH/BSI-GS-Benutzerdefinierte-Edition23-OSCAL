@@ -1,6 +1,4 @@
 {
-    "$schema": "http://json-schema.org/draft-07/schema#",
-    "$id": "https://example.com/oscal/bsi-generation-stub.schema.json",
     "title": "BSI Generation Stub Schema (Level 3 Required)",
     "description": "Defines the structure for the batched maturity level prose generation. It now correctly requires the 'id' and all Level 3 fields, ensuring the baseline is always present.",
     "type": "object",

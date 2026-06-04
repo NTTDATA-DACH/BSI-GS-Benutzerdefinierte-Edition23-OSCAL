@@ -98,8 +98,9 @@ class AiClient:
         try:
             # Create a copy to avoid modifying the original
             schema_for_api = json.loads(json.dumps(json_schema))
-            # The new SDK is robust, but removing $schema is still good practice
+            # The SDK transformer (Pydantic based) fails on standard metadata like $schema and $id
             schema_for_api.pop("$schema", None)
+            schema_for_api.pop("$id", None)
         except Exception as e:
             logger.error(f"Failed to process JSON schema before API call: {e}")
             raise ValueError("Invalid JSON schema provided.") from e
@@ -258,9 +259,10 @@ class AiClient:
                 logger.info(f"[{request_context_log}] Successfully generated and validated JSON on attempt {attempt + 1}.")
                 return response_json
 
-            except (errors.ClientError, ValueError, TypeError, ValidationError, httpx.ConnectError, httpx.TimeoutException) as e:
+            except (errors.ClientError, ValueError, TypeError, ValidationError, httpx.ConnectError, httpx.TimeoutException, KeyError) as e:
                 # errors.ClientError covers most API-level issues in the new SDK
                 # httpx.ConnectError and httpx.TimeoutException cover transient network/timeout issues
+                # KeyError covers specific SDK transformer bugs related to JSON schema $refs
                 wait_time = 2 ** attempt
                 if attempt == retries - 1:
                     logger.critical(f"[{request_context_log}] AI generation failed after all {retries} retries.", exc_info=True)

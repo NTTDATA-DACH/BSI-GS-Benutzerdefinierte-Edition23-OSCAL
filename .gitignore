@@ -3,3 +3,5 @@ __pycache__/
 
 # Local working data for the g2oscal pipeline (input PDFs + generated catalogs)
 /data/
+
+*.log
