@@ -161,8 +161,11 @@ async def main():
     except ValidationError as e:
         logging.critical(f"Final catalog validation FAILED: {e.message}. The output file may be non-compliant.", exc_info=config.TEST_MODE)
 
-    timestamp = datetime.now(timezone.utc).strftime("%Y%m%d_%H%M%S")
-    output_path = config.OUTPUT_DIR / f"MERGED_BSI_Catalog_{timestamp}.json"
+    if config.OUTPUT_FILE:
+        output_path = config.OUTPUT_FILE
+    else:
+        timestamp = datetime.now(timezone.utc).strftime("%Y%m%d_%H%M%S")
+        output_path = config.OUTPUT_DIR / f"MERGED_BSI_Catalog_{timestamp}.json"
     file_utils.write_json(output_path, final_catalog)
 
     logger.info(f"Final catalog successfully written to: {output_path}")

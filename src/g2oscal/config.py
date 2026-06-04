@@ -34,7 +34,12 @@ if _env_source_dirs:
 else:
     SOURCE_DIRS = _DEFAULT_SOURCE_DIRS
 
-# Where the merged catalog is written. Lives under data/ (git-ignored).
+# Where the merged catalog is written.
+# - OUTPUT_FILE: write to this exact path (used by the two-pass run_local.sh to
+#   produce the fixed canonical catalog names). Takes precedence when set.
+# - OUTPUT_DIR: otherwise a timestamped file is written here (git-ignored).
+_output_file = os.environ.get("OUTPUT_FILE")
+OUTPUT_FILE = _resolve_dir(_output_file) if _output_file else None
 OUTPUT_DIR = _resolve_dir(os.environ.get("OUTPUT_DIR", "data/output"))
 
 # Optional existing catalog to merge into. If unset, a fresh catalog is created.

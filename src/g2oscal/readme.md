@@ -178,6 +178,30 @@ Credentials erforderlich.
 Das Verzeichnis `data/` ist über `.gitignore` ausgeschlossen und dient als
 lokale Ablage für eigene Eingabe-PDFs sowie für die generierten Kataloge.
 
+### Voraussetzung: Standard-Bausteine-PDFs herunterladen
+
+Die ~111 Standard-Bausteine des BSI IT-Grundschutz-Kompendiums 2023 sind aus
+Lizenzgründen **nicht** in diesem Repository enthalten. Laden Sie sie vor dem
+ersten Lauf direkt beim BSI herunter und entpacken Sie die Einzel-PDFs nach
+`data/`:
+
+> **Download (BSI, Edition 2023, Einzel-PDFs als ZIP):**
+> <https://www.bsi.bund.de/SharedDocs/Downloads/DE/BSI/Grundschutz/IT-GS-Kompendium_Einzel_PDFs_2023/Zip_Datei_Edition_2023.zip?__blob=publicationFile&v=4>
+
+```bash
+mkdir -p data
+cd data
+curl -L -o kompendium_2023.zip \
+  "https://www.bsi.bund.de/SharedDocs/Downloads/DE/BSI/Grundschutz/IT-GS-Kompendium_Einzel_PDFs_2023/Zip_Datei_Edition_2023.zip?__blob=publicationFile&v=4"
+unzip kompendium_2023.zip
+cd ..
+```
+
+Pass 1 des Skripts verarbeitet diese PDFs aus `data/` zum Standardkatalog
+`BSI_GS_OSCAL_current_2023.json`; Pass 2 ergänzt anschließend die
+benutzerdefinierten Bausteine. Ist `data/` leer, überspringt Pass 1 die
+Erzeugung und nutzt den bereits vorhandenen Standardkatalog als Basis.
+
 ### Lokale Ausführung (Komfort-Skript)
 
 Das Skript `run_local.sh` legt die Datenverzeichnisse an, prüft die
