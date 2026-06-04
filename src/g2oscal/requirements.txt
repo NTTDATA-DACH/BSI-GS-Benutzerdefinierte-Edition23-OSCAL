@@ -1,5 +1,5 @@
-# Using a version of functions-framework that is newer and more stable
-functions-framework>=3.5.0
-google-cloud-storage>=2.16.0
-google-cloud-aiplatform>=1.49.0
+# Current unified Vertex AI SDK (replaces the deprecated google-cloud-aiplatform
+# vertexai.generative_models path); used via src/g2oscal/ai_client.py.
+google-genai>=1.52.0
+httpx>=0.27.0
 jsonschema

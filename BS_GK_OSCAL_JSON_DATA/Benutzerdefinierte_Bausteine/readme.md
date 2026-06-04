@@ -1,5 +1,5 @@
-I needed test data to try the new function to add bausteine to an existing JSON. So I created a few. Accidentially for topics that could be a good addition to the next edition, but the controls are not verified, proof read and peer reviewed. Just gemini-2.5-pro best practice recommendations. Based on a list of missing bausteinen from O3 and gemini together.
+It was done with Gemini 2.5 in August 2025 to show what AI is capable of.
 
-THIS is NOT production quality!
+This remake is based on a skill written by Claude OPUS 4.8 and executed by Gemini 3.1 Pro High.
 
-But could be a starting point for the manual review process with comments from experts.
+Still a showcase where ISMS automation is in mid 2026.

@@ -1,6 +1,4 @@
 {
-  "$schema": "http://json-schema.org/draft-07/schema#",
-  "$id": "https://example.com/oscal/bsi-discovery-enrichment-stub.schema.json",
   "title": "BSI Discovery & Enrichment Stub Schema",
   "description": "Defines the structure for the combined discovery and enrichment phase. It extracts contextual parts and a list of requirements that are immediately enriched with class, practice, and CIA data.",
   "type": "object",
@@ -11,63 +9,60 @@
     "baustein_title": { "type": "string" },
     "contextual_parts": {
       "type": "array",
-      "items": { "$ref": "#/definitions/contextualPart" }
+      "items": {
+        "type": "object",
+        "required": ["name", "title", "prose"],
+        "properties": {
+          "name": { "type": "string" },
+          "title": { "type": "string" },
+          "prose": { "type": "string" }
+        },
+        "additionalProperties": false
+      }
     },
     "requirements_list": {
       "type": "array",
-      "items": { "$ref": "#/definitions/requirement" }
+      "items": {
+        "type": "object",
+        "required": ["id", "title", "prose", "props", "class", "practice", "effective_on_c", "effective_on_i", "effective_on_a"],
+        "properties": {
+          "id": { "type": "string", "pattern": "^[A-Z]+(\\.[0-9A-Za-z]+)+\\.A[0-9]+$" },
+          "title": { "type": "string" },
+          "prose": { "type": "string" },
+          "props": {
+            "type": "object",
+            "required": ["level", "phase"],
+            "properties": {
+              "level": { "type": "string", "enum": ["1", "3", "5"] },
+              "phase": {
+                "type": "string",
+                "enum": [
+                  "Initiation",
+                  "Risk Assessment",
+                  "Risk Treatment",
+                  "Implementation",
+                  "Operation",
+                  "Audit",
+                  "Improvement"
+                ]
+              }
+            },
+            "additionalProperties": false
+          },
+          "class": { "type": "string", "enum": ["Technical", "Operational", "Management"] },
+          "practice": { "type": "string", "enum": [
+              "GOV", "ISGA", "DOCS", "RISK", "REAL", "PERF", "LAW", "ARCH", "SENS",
+              "REA", "NOT", "ASST", "TEST", "PERS", "BES", "DEV", "CON", "DLS",
+              "GEB", "BER", "DET", "SYS", "APP"
+            ]
+          },
+          "effective_on_c": { "type": "boolean" },
+          "effective_on_i": { "type": "boolean" },
+          "effective_on_a": { "type": "boolean" }
+        },
+        "additionalProperties": false
+      }
     }
   },
-  "additionalProperties": false,
-  "definitions": {
-      "contextualPart": {
-          "type": "object",
-          "required": ["name", "title", "prose"],
-          "properties": {
-            "name": { "type": "string" },
-            "title": { "type": "string" },
-            "prose": { "type": "string" }
-          },
-          "additionalProperties": false
-      },
-      "requirement": {
-          "type": "object",
-          "required": ["id", "title", "prose", "props", "class", "practice", "effective_on_c", "effective_on_i", "effective_on_a"],
-          "properties": {
-            "id": { "type": "string" },
-            "title": { "type": "string" },
-            "prose": { "type": "string" },
-            "props": {
-              "type": "object",
-              "required": ["level", "phase"],
-              "properties": {
-                "level": { "enum": ["1", "3", "5"] },
-                "phase": {
-                  "enum": [
-                    "Initiation",
-                    "Risk Assessment",
-                    "Risk Treatment",
-                    "Implementation",
-                    "Operation",
-                    "Audit",
-                    "Improvement"
-                  ]
-                }
-              },
-              "additionalProperties": false
-            },
-            "class": { "enum": ["Technical", "Operational", "Management"] },
-            "practice": { "enum": [
-                "GOV", "ISGA", "DOCS", "RISK", "REAL", "PERF", "LAW", "ARCH", "SENS",
-                "REA", "NOT", "ASST", "TEST", "PERS", "BES", "DEV", "CON", "DLS",
-                "GEB", "BER", "DET", "SYS", "APP"
-              ]
-            },
-            "effective_on_c": { "type": "boolean" },
-            "effective_on_i": { "type": "boolean" },
-            "effective_on_a": { "type": "boolean" }
-          },
-          "additionalProperties": false
-      }
-  }
+  "additionalProperties": false
 }

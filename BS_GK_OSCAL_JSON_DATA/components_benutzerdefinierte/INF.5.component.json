@@ -22,48 +22,48 @@
             "implemented-requirements": [
               {
                 "uuid": "731376c4-d785-49da-89ad-be8cd92817b3",
-                "control-id": "inf-5-a1",
-                "description": "Base implementation for control inf-5-a1."
+                "control-id": "INF.5.A1",
+                "description": "Base implementation for control INF.5.A1."
               },
               {
                 "uuid": "17da49c2-c8a6-4e39-b57c-948fd7736a21",
-                "control-id": "inf-5-a2",
-                "description": "Base implementation for control inf-5-a2."
+                "control-id": "INF.5.A2",
+                "description": "Base implementation for control INF.5.A2."
               },
               {
                 "uuid": "e71fbb07-4911-466a-883d-435ffda77d87",
-                "control-id": "inf-5-a3",
-                "description": "Base implementation for control inf-5-a3."
+                "control-id": "INF.5.A3",
+                "description": "Base implementation for control INF.5.A3."
               },
               {
                 "uuid": "b1bf4369-b0d5-408c-a132-a7d6903307fa",
-                "control-id": "inf-5-a4",
-                "description": "Base implementation for control inf-5-a4."
+                "control-id": "INF.5.A4",
+                "description": "Base implementation for control INF.5.A4."
               },
               {
                 "uuid": "2308f40c-d77a-4e3e-9ed9-5f4967323772",
-                "control-id": "inf-5-a5",
-                "description": "Base implementation for control inf-5-a5."
+                "control-id": "INF.5.A5",
+                "description": "Base implementation for control INF.5.A5."
               },
               {
                 "uuid": "534165db-035a-4e93-95a3-351bc2b97c01",
-                "control-id": "inf-5-a6",
-                "description": "Base implementation for control inf-5-a6."
+                "control-id": "INF.5.A6",
+                "description": "Base implementation for control INF.5.A6."
               },
               {
                 "uuid": "1c776cac-3acb-428b-9239-1d9ad804f342",
-                "control-id": "inf-5-a7",
-                "description": "Base implementation for control inf-5-a7."
+                "control-id": "INF.5.A7",
+                "description": "Base implementation for control INF.5.A7."
               },
               {
                 "uuid": "8dd3ce35-5215-4f66-9365-a6974681d603",
-                "control-id": "inf-5-a8",
-                "description": "Base implementation for control inf-5-a8."
+                "control-id": "INF.5.A8",
+                "description": "Base implementation for control INF.5.A8."
               },
               {
                 "uuid": "801c6829-b247-444c-9f57-766dba84e8e3",
-                "control-id": "inf-5-a9",
-                "description": "Base implementation for control inf-5-a9."
+                "control-id": "INF.5.A9",
+                "description": "Base implementation for control INF.5.A9."
               }
             ]
           },

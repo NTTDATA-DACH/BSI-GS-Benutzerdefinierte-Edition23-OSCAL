@@ -88176,7 +88176,7 @@
             "class": "baustein",
             "controls": [
               {
-                "id": "sys.1.8.a1",
+                "id": "SYS.1.8.A1",
                 "title": "Vhodná instalace úložných systémů",
                 "class": "technical",
                 "props": [
@@ -88193,7 +88193,7 @@
                 ],
                 "parts": [
                   {
-                    "id": "sys.1.8.a1-m1",
+                    "id": "SYS.1.8.A1-m1",
                     "name": "maturity-level-description",
                     "title": "Úroveň zralosti 1: Částečná",
                     "class": "maturity-level-partial",
@@ -88213,7 +88213,7 @@
                     ]
                   },
                   {
-                    "id": "sys.1.8.a1-m2",
+                    "id": "SYS.1.8.A1-m2",
                     "name": "maturity-level-description",
                     "title": "Úroveň zralosti 2: Základní",
                     "class": "maturity-level-foundational",
@@ -88233,7 +88233,7 @@
                     ]
                   },
                   {
-                    "id": "sys.1.8.a1-m3",
+                    "id": "SYS.1.8.A1-m3",
                     "name": "maturity-level-description",
                     "title": "Úroveň zralosti 3: Definovaná",
                     "class": "maturity-level-defined",
@@ -88253,7 +88253,7 @@
                     ]
                   },
                   {
-                    "id": "sys.1.8.a1-m4",
+                    "id": "SYS.1.8.A1-m4",
                     "name": "maturity-level-description",
                     "title": "Úroveň zralosti 4: Rozšířená",
                     "class": "maturity-level-enhanced",
@@ -88273,7 +88273,7 @@
                     ]
                   },
                   {
-                    "id": "sys.1.8.a1-m5",
+                    "id": "SYS.1.8.A1-m5",
                     "name": "maturity-level-description",
                     "title": "Úroveň zralosti 5: Komplexní",
                     "class": "maturity-level-comprehensive",
@@ -88295,7 +88295,7 @@
                 ]
               },
               {
-                "id": "sys.1.8.a2",
+                "id": "SYS.1.8.A2",
                 "title": "Bezpečné základní nastavení úložných řešení",
                 "class": "technical",
                 "props": [
@@ -88312,7 +88312,7 @@
                 ],
                 "parts": [
                   {
-                    "id": "sys.1.8.a2-m1",
+                    "id": "SYS.1.8.A2-m1",
                     "name": "maturity-level-description",
                     "title": "Úroveň zralosti 1: Částečná",
                     "class": "maturity-level-partial",
@@ -88332,7 +88332,7 @@
                     ]
                   },
                   {
-                    "id": "sys.1.8.a2-m2",
+                    "id": "SYS.1.8.A2-m2",
                     "name": "maturity-level-description",
                     "title": "Úroveň zralosti 2: Základní",
                     "class": "maturity-level-foundational",
@@ -88352,7 +88352,7 @@
                     ]
                   },
                   {
-                    "id": "sys.1.8.a2-m3",
+                    "id": "SYS.1.8.A2-m3",
                     "name": "maturity-level-description",
                     "title": "Úroveň zralosti 3: Definovaná",
                     "class": "maturity-level-defined",
@@ -88372,7 +88372,7 @@
                     ]
                   },
                   {
-                    "id": "sys.1.8.a2-m4",
+                    "id": "SYS.1.8.A2-m4",
                     "name": "maturity-level-description",
                     "title": "Úroveň zralosti 4: Rozšířená",
                     "class": "maturity-level-enhanced",
@@ -88392,7 +88392,7 @@
                     ]
                   },
                   {
-                    "id": "sys.1.8.a2-m5",
+                    "id": "SYS.1.8.A2-m5",
                     "name": "maturity-level-description",
                     "title": "Úroveň zralosti 5: Komplexní",
                     "class": "maturity-level-comprehensive",
@@ -88414,7 +88414,7 @@
                 ]
               },
               {
-                "id": "sys.1.8.a4",
+                "id": "SYS.1.8.A4",
                 "title": "Ochrana administrativních rozhraní",
                 "class": "technical",
                 "props": [
@@ -88431,7 +88431,7 @@
                 ],
                 "parts": [
                   {
-                    "id": "sys.1.8.a4-m1",
+                    "id": "SYS.1.8.A4-m1",
                     "name": "maturity-level-description",
                     "title": "Úroveň zralosti 1: Částečná",
                     "class": "maturity-level-partial",
@@ -88451,7 +88451,7 @@
                     ]
                   },
                   {
-                    "id": "sys.1.8.a4-m2",
+                    "id": "SYS.1.8.A4-m2",
                     "name": "maturity-level-description",
                     "title": "Úroveň zralosti 2: Základní",
                     "class": "maturity-level-foundational",
@@ -88471,7 +88471,7 @@
                     ]
                   },
                   {
-                    "id": "sys.1.8.a4-m3",
+                    "id": "SYS.1.8.A4-m3",
                     "name": "maturity-level-description",
                     "title": "Úroveň zralosti 3: Definovaná",
                     "class": "maturity-level-defined",
@@ -88491,7 +88491,7 @@
                     ]
                   },
                   {
-                    "id": "sys.1.8.a4-m4",
+                    "id": "SYS.1.8.A4-m4",
                     "name": "maturity-level-description",
                     "title": "Úroveň zralosti 4: Rozšířená",
                     "class": "maturity-level-enhanced",
@@ -88511,7 +88511,7 @@
                     ]
                   },
                   {
-                    "id": "sys.1.8.a4-m5",
+                    "id": "SYS.1.8.A4-m5",
                     "name": "maturity-level-description",
                     "title": "Úroveň zralosti 5: Komplexní",
                     "class": "maturity-level-comprehensive",
@@ -88533,7 +88533,7 @@
                 ]
               },
               {
-                "id": "sys.1.8.a6",
+                "id": "SYS.1.8.A6",
                 "title": "Vytvoření bezpečnostní politiky pro úložná řešení",
                 "class": "technical",
                 "props": [
@@ -88550,7 +88550,7 @@
                 ],
                 "parts": [
                   {
-                    "id": "sys.1.8.a6-m1",
+                    "id": "SYS.1.8.A6-m1",
                     "name": "maturity-level-description",
                     "title": "Úroveň zralosti 1: Částečná",
                     "class": "maturity-level-partial",
@@ -88570,7 +88570,7 @@
                     ]
                   },
                   {
-                    "id": "sys.1.8.a6-m2",
+                    "id": "SYS.1.8.A6-m2",
                     "name": "maturity-level-description",
                     "title": "Úroveň zralosti 2: Základní",
                     "class": "maturity-level-foundational",
@@ -88590,7 +88590,7 @@
                     ]
                   },
                   {
-                    "id": "sys.1.8.a6-m3",
+                    "id": "SYS.1.8.A6-m3",
                     "name": "maturity-level-description",
                     "title": "Úroveň zralosti 3: Definovaná",
                     "class": "maturity-level-defined",
@@ -88610,7 +88610,7 @@
                     ]
                   },
                   {
-                    "id": "sys.1.8.a6-m4",
+                    "id": "SYS.1.8.A6-m4",
                     "name": "maturity-level-description",
                     "title": "Úroveň zralosti 4: Rozšířená",
                     "class": "maturity-level-enhanced",
@@ -88630,7 +88630,7 @@
                     ]
                   },
                   {
-                    "id": "sys.1.8.a6-m5",
+                    "id": "SYS.1.8.A6-m5",
                     "name": "maturity-level-description",
                     "title": "Úroveň zralosti 5: Komplexní",
                     "class": "maturity-level-comprehensive",
@@ -88652,7 +88652,7 @@
                 ]
               },
               {
-                "id": "sys.1.8.a7",
+                "id": "SYS.1.8.A7",
                 "title": "Plánování úložných řešení",
                 "class": "technical",
                 "props": [
@@ -88669,7 +88669,7 @@
                 ],
                 "parts": [
                   {
-                    "id": "sys.1.8.a7-m3",
+                    "id": "SYS.1.8.A7-m3",
                     "name": "maturity-level-description",
                     "title": "Úroveň zralosti 3: Definovaná",
                     "class": "maturity-level-defined",
@@ -88691,7 +88691,7 @@
                 ]
               },
               {
-                "id": "sys.1.8.a8",
+                "id": "SYS.1.8.A8",
                 "title": "Výběr vhodného úložného řešení",
                 "class": "technical",
                 "props": [
@@ -88708,7 +88708,7 @@
                 ],
                 "parts": [
                   {
-                    "id": "sys.1.8.a8-m3",
+                    "id": "SYS.1.8.A8-m3",
                     "name": "maturity-level-description",
                     "title": "Úroveň zralosti 3: Definovaná",
                     "class": "maturity-level-defined",
@@ -88730,7 +88730,7 @@
                 ]
               },
               {
-                "id": "sys.1.8.a9",
+                "id": "SYS.1.8.A9",
                 "title": "Výběr dodavatelů pro úložné řešení",
                 "class": "technical",
                 "props": [
@@ -88747,7 +88747,7 @@
                 ],
                 "parts": [
                   {
-                    "id": "sys.1.8.a9-m3",
+                    "id": "SYS.1.8.A9-m3",
                     "name": "maturity-level-description",
                     "title": "Úroveň zralosti 3: Definovaná",
                     "class": "maturity-level-defined",
@@ -88769,7 +88769,7 @@
                 ]
               },
               {
-                "id": "sys.1.8.a10",
+                "id": "SYS.1.8.A10",
                 "title": "Vytvoření a údržba provozní příručky",
                 "class": "technical",
                 "props": [
@@ -88786,7 +88786,7 @@
                 ],
                 "parts": [
                   {
-                    "id": "sys.1.8.a10-m3",
+                    "id": "SYS.1.8.A10-m3",
                     "name": "maturity-level-description",
                     "title": "Úroveň zralosti 3: Definovaná",
                     "class": "maturity-level-defined",
@@ -88808,7 +88808,7 @@
                 ]
               },
               {
-                "id": "sys.1.8.a11",
+                "id": "SYS.1.8.A11",
                 "title": "Bezpečný provoz úložného řešení",
                 "class": "technical",
                 "props": [
@@ -88825,7 +88825,7 @@
                 ],
                 "parts": [
                   {
-                    "id": "sys.1.8.a11-m3",
+                    "id": "SYS.1.8.A11-m3",
                     "name": "maturity-level-description",
                     "title": "Úroveň zralosti 3: Definovaná",
                     "class": "maturity-level-defined",
@@ -88847,7 +88847,7 @@
                 ]
               },
               {
-                "id": "sys.1.8.a13",
+                "id": "SYS.1.8.A13",
                 "title": "Monitorování a správa úložných řešení",
                 "class": "technical",
                 "props": [
@@ -88864,7 +88864,7 @@
                 ],
                 "parts": [
                   {
-                    "id": "sys.1.8.a13-m3",
+                    "id": "SYS.1.8.A13-m3",
                     "name": "maturity-level-description",
                     "title": "Úroveň zralosti 3: Definovaná",
                     "class": "maturity-level-defined",
@@ -88886,7 +88886,7 @@
                 ]
               },
               {
-                "id": "sys.1.8.a14",
+                "id": "SYS.1.8.A14",
                 "title": "Zabezpečení SAN pomocí segmentace",
                 "class": "technical",
                 "props": [
@@ -88903,7 +88903,7 @@
                 ],
                 "parts": [
                   {
-                    "id": "sys.1.8.a14-m3",
+                    "id": "SYS.1.8.A14-m3",
                     "name": "maturity-level-description",
                     "title": "Úroveň zralosti 3: Definovaná",
                     "class": "maturity-level-defined",
@@ -88925,7 +88925,7 @@
                 ]
               },
               {
-                "id": "sys.1.8.a15",
+                "id": "SYS.1.8.A15",
                 "title": "Bezpečné oddělení tenantů v úložných řešeních",
                 "class": "technical",
                 "props": [
@@ -88942,7 +88942,7 @@
                 ],
                 "parts": [
                   {
-                    "id": "sys.1.8.a15-m3",
+                    "id": "SYS.1.8.A15-m3",
                     "name": "maturity-level-description",
                     "title": "Úroveň zralosti 3: Definovaná",
                     "class": "maturity-level-defined",
@@ -88964,7 +88964,7 @@
                 ]
               },
               {
-                "id": "sys.1.8.a16",
+                "id": "SYS.1.8.A16",
                 "title": "Bezpečné mazání v prostředích SAN",
                 "class": "technical",
                 "props": [
@@ -88981,7 +88981,7 @@
                 ],
                 "parts": [
                   {
-                    "id": "sys.1.8.a16-m3",
+                    "id": "SYS.1.8.A16-m3",
                     "name": "maturity-level-description",
                     "title": "Úroveň zralosti 3: Definovaná",
                     "class": "maturity-level-defined",
@@ -89003,7 +89003,7 @@
                 ]
               },
               {
-                "id": "sys.1.8.a17",
+                "id": "SYS.1.8.A17",
                 "title": "Dokumentace nastavení úložných systémů",
                 "class": "technical",
                 "props": [
@@ -89020,7 +89020,7 @@
                 ],
                 "parts": [
                   {
-                    "id": "sys.1.8.a17-m3",
+                    "id": "SYS.1.8.A17-m3",
                     "name": "maturity-level-description",
                     "title": "Úroveň zralosti 3: Definovaná",
                     "class": "maturity-level-defined",
@@ -89042,7 +89042,7 @@
                 ]
               },
               {
-                "id": "sys.1.8.a18",
+                "id": "SYS.1.8.A18",
                 "title": "Bezpečnostní audity a reporting u úložných systémů",
                 "class": "technical",
                 "props": [
@@ -89059,7 +89059,7 @@
                 ],
                 "parts": [
                   {
-                    "id": "sys.1.8.a18-m3",
+                    "id": "SYS.1.8.A18-m3",
                     "name": "maturity-level-description",
                     "title": "Úroveň zralosti 3: Definovaná",
                     "class": "maturity-level-defined",
@@ -89081,7 +89081,7 @@
                 ]
               },
               {
-                "id": "sys.1.8.a19",
+                "id": "SYS.1.8.A19",
                 "title": "Vyřazení úložných řešení",
                 "class": "technical",
                 "props": [
@@ -89098,7 +89098,7 @@
                 ],
                 "parts": [
                   {
-                    "id": "sys.1.8.a19-m3",
+                    "id": "SYS.1.8.A19-m3",
                     "name": "maturity-level-description",
                     "title": "Úroveň zralosti 3: Definovaná",
                     "class": "maturity-level-defined",
@@ -89120,7 +89120,7 @@
                 ]
               },
               {
-                "id": "sys.1.8.a20",
+                "id": "SYS.1.8.A20",
                 "title": "Nouzová připravenost a reakce na incidenty u úložných řešení",
                 "class": "technical",
                 "props": [
@@ -89137,7 +89137,7 @@
                 ],
                 "parts": [
                   {
-                    "id": "sys.1.8.a20-m3",
+                    "id": "SYS.1.8.A20-m3",
                     "name": "maturity-level-description",
                     "title": "Úroveň zralosti 3: Definovaná",
                     "class": "maturity-level-defined",
@@ -89159,7 +89159,7 @@
                 ]
               },
               {
-                "id": "sys.1.8.a21",
+                "id": "SYS.1.8.A21",
                 "title": "Použití úložných poolů pro oddělení tenantů",
                 "class": "technical",
                 "props": [
@@ -89176,7 +89176,7 @@
                 ],
                 "parts": [
                   {
-                    "id": "sys.1.8.a21-m3",
+                    "id": "SYS.1.8.A21-m3",
                     "name": "maturity-level-description",
                     "title": "Úroveň zralosti 3: Definovaná",
                     "class": "maturity-level-defined",
@@ -89196,7 +89196,7 @@
                     ]
                   },
                   {
-                    "id": "sys.1.8.a21-m5",
+                    "id": "SYS.1.8.A21-m5",
                     "name": "maturity-level-description",
                     "title": "Úroveň zralosti 5: Komplexní",
                     "class": "maturity-level-comprehensive",
@@ -89218,7 +89218,7 @@
                 ]
               },
               {
-                "id": "sys.1.8.a22",
+                "id": "SYS.1.8.A22",
                 "title": "Použití vysoce dostupného řešení SAN",
                 "class": "technical",
                 "props": [
@@ -89235,7 +89235,7 @@
                 ],
                 "parts": [
                   {
-                    "id": "sys.1.8.a22-m3",
+                    "id": "SYS.1.8.A22-m3",
                     "name": "maturity-level-description",
                     "title": "Úroveň zralosti 3: Definovaná",
                     "class": "maturity-level-defined",
@@ -89255,7 +89255,7 @@
                     ]
                   },
                   {
-                    "id": "sys.1.8.a22-m5",
+                    "id": "SYS.1.8.A22-m5",
                     "name": "maturity-level-description",
                     "title": "Úroveň zralosti 5: Komplexní",
                     "class": "maturity-level-comprehensive",
@@ -89277,7 +89277,7 @@
                 ]
               },
               {
-                "id": "sys.1.8.a23",
+                "id": "SYS.1.8.A23",
                 "title": "Použití šifrování pro úložná řešení",
                 "class": "technical",
                 "props": [
@@ -89294,7 +89294,7 @@
                 ],
                 "parts": [
                   {
-                    "id": "sys.1.8.a23-m3",
+                    "id": "SYS.1.8.A23-m3",
                     "name": "maturity-level-description",
                     "title": "Úroveň zralosti 3: Definovaná",
                     "class": "maturity-level-defined",
@@ -89314,7 +89314,7 @@
                     ]
                   },
                   {
-                    "id": "sys.1.8.a23-m5",
+                    "id": "SYS.1.8.A23-m5",
                     "name": "maturity-level-description",
                     "title": "Úroveň zralosti 5: Komplexní",
                     "class": "maturity-level-comprehensive",
@@ -89336,7 +89336,7 @@
                 ]
               },
               {
-                "id": "sys.1.8.a24",
+                "id": "SYS.1.8.A24",
                 "title": "Zajištění integrity SAN fabric",
                 "class": "technical",
                 "props": [
@@ -89353,7 +89353,7 @@
                 ],
                 "parts": [
                   {
-                    "id": "sys.1.8.a24-m3",
+                    "id": "SYS.1.8.A24-m3",
                     "name": "maturity-level-description",
                     "title": "Úroveň zralosti 3: Definovaná",
                     "class": "maturity-level-defined",
@@ -89373,7 +89373,7 @@
                     ]
                   },
                   {
-                    "id": "sys.1.8.a24-m5",
+                    "id": "SYS.1.8.A24-m5",
                     "name": "maturity-level-description",
                     "title": "Úroveň zralosti 5: Komplexní",
                     "class": "maturity-level-comprehensive",
@@ -89395,7 +89395,7 @@
                 ]
               },
               {
-                "id": "sys.1.8.a25",
+                "id": "SYS.1.8.A25",
                 "title": "Vícenásobné přepsání dat LUN",
                 "class": "technical",
                 "props": [
@@ -89412,7 +89412,7 @@
                 ],
                 "parts": [
                   {
-                    "id": "sys.1.8.a25-m3",
+                    "id": "SYS.1.8.A25-m3",
                     "name": "maturity-level-description",
                     "title": "Úroveň zralosti 3: Definovaná",
                     "class": "maturity-level-defined",
@@ -89432,7 +89432,7 @@
                     ]
                   },
                   {
-                    "id": "sys.1.8.a25-m5",
+                    "id": "SYS.1.8.A25-m5",
                     "name": "maturity-level-description",
                     "title": "Úroveň zralosti 5: Komplexní",
                     "class": "maturity-level-comprehensive",
@@ -89454,7 +89454,7 @@
                 ]
               },
               {
-                "id": "sys.1.8.a26",
+                "id": "SYS.1.8.A26",
                 "title": "Zabezpečení sítě SAN pomocí hard zoningu",
                 "class": "technical",
                 "props": [
@@ -89471,7 +89471,7 @@
                 ],
                 "parts": [
                   {
-                    "id": "sys.1.8.a26-m3",
+                    "id": "SYS.1.8.A26-m3",
                     "name": "maturity-level-description",
                     "title": "Úroveň zralosti 3: Definovaná",
                     "class": "maturity-level-defined",
@@ -89491,7 +89491,7 @@
                     ]
                   },
                   {
-                    "id": "sys.1.8.a26-m5",
+                    "id": "SYS.1.8.A26-m5",
                     "name": "maturity-level-description",
                     "title": "Úroveň zralosti 5: Komplexní",
                     "class": "maturity-level-comprehensive",
@@ -152853,7 +152853,7 @@
             "class": "baustein",
             "controls": [
               {
-                "id": "inf-5-a1",
+                "id": "INF.5.A1",
                 "title": "INF.5.A1 Plánování zabezpečení místnosti (B) [Plánovač]",
                 "class": "technical",
                 "props": [
@@ -152870,7 +152870,7 @@
                 ],
                 "parts": [
                   {
-                    "id": "inf-5-a1-m1",
+                    "id": "INF.5.A1-m1",
                     "name": "maturity-level-description",
                     "title": "Úroveň zralosti 1: Částečná",
                     "class": "maturity-level-partial",
@@ -152890,7 +152890,7 @@
                     ]
                   },
                   {
-                    "id": "inf-5-a1-m2",
+                    "id": "INF.5.A1-m2",
                     "name": "maturity-level-description",
                     "title": "Úroveň zralosti 2: Základní",
                     "class": "maturity-level-foundational",
@@ -152910,7 +152910,7 @@
                     ]
                   },
                   {
-                    "id": "inf-5-a1-m3",
+                    "id": "INF.5.A1-m3",
                     "name": "maturity-level-description",
                     "title": "Úroveň zralosti 3: Definovaná",
                     "class": "maturity-level-defined",
@@ -152930,7 +152930,7 @@
                     ]
                   },
                   {
-                    "id": "inf-5-a1-m4",
+                    "id": "INF.5.A1-m4",
                     "name": "maturity-level-description",
                     "title": "Úroveň zralosti 4: Rozšířená",
                     "class": "maturity-level-enhanced",
@@ -152950,7 +152950,7 @@
                     ]
                   },
                   {
-                    "id": "inf-5-a1-m5",
+                    "id": "INF.5.A1-m5",
                     "name": "maturity-level-description",
                     "title": "Úroveň zralosti 5: Komplexní",
                     "class": "maturity-level-comprehensive",
@@ -152972,7 +152972,7 @@
                 ]
               },
               {
-                "id": "inf-5-a2",
+                "id": "INF.5.A2",
                 "title": "INF.5.A2 Umístění a velikost místnosti pro technickou infrastrukturu (B) [Plánovači]",
                 "class": "technical",
                 "props": [
@@ -152989,7 +152989,7 @@
                 ],
                 "parts": [
                   {
-                    "id": "inf-5-a2-m1",
+                    "id": "INF.5.A2-m1",
                     "name": "maturity-level-description",
                     "title": "Úroveň zralosti 1: Částečná",
                     "class": "maturity-level-partial",
@@ -153009,7 +153009,7 @@
                     ]
                   },
                   {
-                    "id": "inf-5-a2-m2",
+                    "id": "INF.5.A2-m2",
                     "name": "maturity-level-description",
                     "title": "Úroveň zralosti 2: Základní",
                     "class": "maturity-level-foundational",
@@ -153029,7 +153029,7 @@
                     ]
                   },
                   {
-                    "id": "inf-5-a2-m3",
+                    "id": "INF.5.A2-m3",
                     "name": "maturity-level-description",
                     "title": "Úroveň zralosti 3: Definovaná",
                     "class": "maturity-level-defined",
@@ -153049,7 +153049,7 @@
                     ]
                   },
                   {
-                    "id": "inf-5-a2-m4",
+                    "id": "INF.5.A2-m4",
                     "name": "maturity-level-description",
                     "title": "Úroveň zralosti 4: Rozšířená",
                     "class": "maturity-level-enhanced",
@@ -153069,7 +153069,7 @@
                     ]
                   },
                   {
-                    "id": "inf-5-a2-m5",
+                    "id": "INF.5.A2-m5",
                     "name": "maturity-level-description",
                     "title": "Úroveň zralosti 5: Komplexní",
                     "class": "maturity-level-comprehensive",
@@ -153091,7 +153091,7 @@
                 ]
               },
               {
-                "id": "inf-5-a3",
+                "id": "INF.5.A3",
                 "title": "INF.5.A3 Regulace a kontrola přístupu (B) [Správa budov, IT provoz]",
                 "class": "technical",
                 "props": [
@@ -153108,7 +153108,7 @@
                 ],
                 "parts": [
                   {
-                    "id": "inf-5-a3-m1",
+                    "id": "INF.5.A3-m1",
                     "name": "maturity-level-description",
                     "title": "Úroveň zralosti 1: Částečná",
                     "class": "maturity-level-partial",
@@ -153128,7 +153128,7 @@
                     ]
                   },
                   {
-                    "id": "inf-5-a3-m2",
+                    "id": "INF.5.A3-m2",
                     "name": "maturity-level-description",
                     "title": "Úroveň zralosti 2: Základní",
                     "class": "maturity-level-foundational",
@@ -153148,7 +153148,7 @@
                     ]
                   },
                   {
-                    "id": "inf-5-a3-m3",
+                    "id": "INF.5.A3-m3",
                     "name": "maturity-level-description",
                     "title": "Úroveň zralosti 3: Definovaná",
                     "class": "maturity-level-defined",
@@ -153168,7 +153168,7 @@
                     ]
                   },
                   {
-                    "id": "inf-5-a3-m4",
+                    "id": "INF.5.A3-m4",
                     "name": "maturity-level-description",
                     "title": "Úroveň zralosti 4: Rozšířená",
                     "class": "maturity-level-enhanced",
@@ -153188,7 +153188,7 @@
                     ]
                   },
                   {
-                    "id": "inf-5-a3-m5",
+                    "id": "INF.5.A3-m5",
                     "name": "maturity-level-description",
                     "title": "Úroveň zralosti 5: Komplexní",
                     "class": "maturity-level-comprehensive",
@@ -153210,7 +153210,7 @@
                 ]
               },
               {
-                "id": "inf-5-a4",
+                "id": "INF.5.A4",
                 "title": "INF.5.A4 Ochrana proti vloupání (B) [Plánovači, Technické zařízení budov]",
                 "class": "technical",
                 "props": [
@@ -153227,7 +153227,7 @@
                 ],
                 "parts": [
                   {
-                    "id": "inf-5-a4-m1",
+                    "id": "INF.5.A4-m1",
                     "name": "maturity-level-description",
                     "title": "Úroveň zralosti 1: Částečná",
                     "class": "maturity-level-partial",
@@ -153247,7 +153247,7 @@
                     ]
                   },
                   {
-                    "id": "inf-5-a4-m2",
+                    "id": "INF.5.A4-m2",
                     "name": "maturity-level-description",
                     "title": "Úroveň zralosti 2: Základní",
                     "class": "maturity-level-foundational",
@@ -153267,7 +153267,7 @@
                     ]
                   },
                   {
-                    "id": "inf-5-a4-m3",
+                    "id": "INF.5.A4-m3",
                     "name": "maturity-level-description",
                     "title": "Úroveň zralosti 3: Definovaná",
                     "class": "maturity-level-defined",
@@ -153287,7 +153287,7 @@
                     ]
                   },
                   {
-                    "id": "inf-5-a4-m4",
+                    "id": "INF.5.A4-m4",
                     "name": "maturity-level-description",
                     "title": "Úroveň zralosti 4: Rozšířená",
                     "class": "maturity-level-enhanced",
@@ -153307,7 +153307,7 @@
                     ]
                   },
                   {
-                    "id": "inf-5-a4-m5",
+                    "id": "INF.5.A4-m5",
                     "name": "maturity-level-description",
                     "title": "Úroveň zralosti 5: Komplexní",
                     "class": "maturity-level-comprehensive",
@@ -153329,7 +153329,7 @@
                 ]
               },
               {
-                "id": "inf-5-a5",
+                "id": "INF.5.A5",
                 "title": "INF.5.A5 Vyhýbání se elektromagnetickým rušivým polím a ochrana před nimi (B) [Plánovači]",
                 "class": "technical",
                 "props": [
@@ -153346,7 +153346,7 @@
                 ],
                 "parts": [
                   {
-                    "id": "inf-5-a5-m1",
+                    "id": "INF.5.A5-m1",
                     "name": "maturity-level-description",
                     "title": "Úroveň zralosti 1: Částečná",
                     "class": "maturity-level-partial",
@@ -153366,7 +153366,7 @@
                     ]
                   },
                   {
-                    "id": "inf-5-a5-m2",
+                    "id": "INF.5.A5-m2",
                     "name": "maturity-level-description",
                     "title": "Úroveň zralosti 2: Základní",
                     "class": "maturity-level-foundational",
@@ -153386,7 +153386,7 @@
                     ]
                   },
                   {
-                    "id": "inf-5-a5-m3",
+                    "id": "INF.5.A5-m3",
                     "name": "maturity-level-description",
                     "title": "Úroveň zralosti 3: Definovaná",
                     "class": "maturity-level-defined",
@@ -153406,7 +153406,7 @@
                     ]
                   },
                   {
-                    "id": "inf-5-a5-m4",
+                    "id": "INF.5.A5-m4",
                     "name": "maturity-level-description",
                     "title": "Úroveň zralosti 4: Rozšířená",
                     "class": "maturity-level-enhanced",
@@ -153426,7 +153426,7 @@
                     ]
                   },
                   {
-                    "id": "inf-5-a5-m5",
+                    "id": "INF.5.A5-m5",
                     "name": "maturity-level-description",
                     "title": "Úroveň zralosti 5: Komplexní",
                     "class": "maturity-level-comprehensive",
@@ -153448,7 +153448,7 @@
                 ]
               },
               {
-                "id": "inf-5-a6",
+                "id": "INF.5.A6",
                 "title": "INF.5.A6 Minimalizace požárního zatížení (B) [Zaměstnanci, Plánovači]",
                 "class": "technical",
                 "props": [
@@ -153465,7 +153465,7 @@
                 ],
                 "parts": [
                   {
-                    "id": "inf-5-a6-m1",
+                    "id": "INF.5.A6-m1",
                     "name": "maturity-level-description",
                     "title": "Úroveň zralosti 1: Částečná",
                     "class": "maturity-level-partial",
@@ -153485,7 +153485,7 @@
                     ]
                   },
                   {
-                    "id": "inf-5-a6-m2",
+                    "id": "INF.5.A6-m2",
                     "name": "maturity-level-description",
                     "title": "Úroveň zralosti 2: Základní",
                     "class": "maturity-level-foundational",
@@ -153505,7 +153505,7 @@
                     ]
                   },
                   {
-                    "id": "inf-5-a6-m3",
+                    "id": "INF.5.A6-m3",
                     "name": "maturity-level-description",
                     "title": "Úroveň zralosti 3: Definovaná",
                     "class": "maturity-level-defined",
@@ -153525,7 +153525,7 @@
                     ]
                   },
                   {
-                    "id": "inf-5-a6-m4",
+                    "id": "INF.5.A6-m4",
                     "name": "maturity-level-description",
                     "title": "Úroveň zralosti 4: Rozšířená",
                     "class": "maturity-level-enhanced",
@@ -153545,7 +153545,7 @@
                     ]
                   },
                   {
-                    "id": "inf-5-a6-m5",
+                    "id": "INF.5.A6-m5",
                     "name": "maturity-level-description",
                     "title": "Úroveň zralosti 5: Komplexní",
                     "class": "maturity-level-comprehensive",
@@ -153567,7 +153567,7 @@
                 ]
               },
               {
-                "id": "inf-5-a7",
+                "id": "INF.5.A7",
                 "title": "INF.5.A7 Prevence zneužití (B) [Zaměstnanci, Plánovači]",
                 "class": "technical",
                 "props": [
@@ -153584,7 +153584,7 @@
                 ],
                 "parts": [
                   {
-                    "id": "inf-5-a7-m1",
+                    "id": "INF.5.A7-m1",
                     "name": "maturity-level-description",
                     "title": "Úroveň zralosti 1: Částečná",
                     "class": "maturity-level-partial",
@@ -153604,7 +153604,7 @@
                     ]
                   },
                   {
-                    "id": "inf-5-a7-m2",
+                    "id": "INF.5.A7-m2",
                     "name": "maturity-level-description",
                     "title": "Úroveň zralosti 2: Základní",
                     "class": "maturity-level-foundational",
@@ -153624,7 +153624,7 @@
                     ]
                   },
                   {
-                    "id": "inf-5-a7-m3",
+                    "id": "INF.5.A7-m3",
                     "name": "maturity-level-description",
                     "title": "Úroveň zralosti 3: Definovaná",
                     "class": "maturity-level-defined",
@@ -153644,7 +153644,7 @@
                     ]
                   },
                   {
-                    "id": "inf-5-a7-m4",
+                    "id": "INF.5.A7-m4",
                     "name": "maturity-level-description",
                     "title": "Úroveň zralosti 4: Rozšířená",
                     "class": "maturity-level-enhanced",
@@ -153664,7 +153664,7 @@
                     ]
                   },
                   {
-                    "id": "inf-5-a7-m5",
+                    "id": "INF.5.A7-m5",
                     "name": "maturity-level-description",
                     "title": "Úroveň zralosti 5: Komplexní",
                     "class": "maturity-level-comprehensive",
@@ -153686,7 +153686,7 @@
                 ]
               },
               {
-                "id": "inf-5-a8",
+                "id": "INF.5.A8",
                 "title": "INF.5.A8 Zabránění nekontrolovanému elektrostatickému výboji (S) [Plánovači]",
                 "class": "technical",
                 "props": [
@@ -153703,7 +153703,7 @@
                 ],
                 "parts": [
                   {
-                    "id": "inf-5-a8-m1",
+                    "id": "INF.5.A8-m1",
                     "name": "maturity-level-description",
                     "title": "Úroveň zralosti 1: Částečná",
                     "class": "maturity-level-partial",
@@ -153723,7 +153723,7 @@
                     ]
                   },
                   {
-                    "id": "inf-5-a8-m2",
+                    "id": "INF.5.A8-m2",
                     "name": "maturity-level-description",
                     "title": "Úroveň zralosti 2: Základní",
                     "class": "maturity-level-foundational",
@@ -153743,7 +153743,7 @@
                     ]
                   },
                   {
-                    "id": "inf-5-a8-m3",
+                    "id": "INF.5.A8-m3",
                     "name": "maturity-level-description",
                     "title": "Úroveň zralosti 3: Definovaná",
                     "class": "maturity-level-defined",
@@ -153763,7 +153763,7 @@
                     ]
                   },
                   {
-                    "id": "inf-5-a8-m4",
+                    "id": "INF.5.A8-m4",
                     "name": "maturity-level-description",
                     "title": "Úroveň zralosti 4: Rozšířená",
                     "class": "maturity-level-enhanced",
@@ -153783,7 +153783,7 @@
                     ]
                   },
                   {
-                    "id": "inf-5-a8-m5",
+                    "id": "INF.5.A8-m5",
                     "name": "maturity-level-description",
                     "title": "Úroveň zralosti 5: Komplexní",
                     "class": "maturity-level-comprehensive",
@@ -153805,7 +153805,7 @@
                 ]
               },
               {
-                "id": "inf-5-a9",
+                "id": "INF.5.A9",
                 "title": "INF.5.A9 Napájení (B) [Správa budov]",
                 "class": "technical",
                 "props": [
@@ -153822,7 +153822,7 @@
                 ],
                 "parts": [
                   {
-                    "id": "inf-5-a9-m1",
+                    "id": "INF.5.A9-m1",
                     "name": "maturity-level-description",
                     "title": "Úroveň zralosti 1: Částečná",
                     "class": "maturity-level-partial",
@@ -153842,7 +153842,7 @@
                     ]
                   },
                   {
-                    "id": "inf-5-a9-m2",
+                    "id": "INF.5.A9-m2",
                     "name": "maturity-level-description",
                     "title": "Úroveň zralosti 2: Základní",
                     "class": "maturity-level-foundational",
@@ -153862,7 +153862,7 @@
                     ]
                   },
                   {
-                    "id": "inf-5-a9-m3",
+                    "id": "INF.5.A9-m3",
                     "name": "maturity-level-description",
                     "title": "Úroveň zralosti 3: Definovaná",
                     "class": "maturity-level-defined",
@@ -153882,7 +153882,7 @@
                     ]
                   },
                   {
-                    "id": "inf-5-a9-m4",
+                    "id": "INF.5.A9-m4",
                     "name": "maturity-level-description",
                     "title": "Úroveň zralosti 4: Rozšířená",
                     "class": "maturity-level-enhanced",
@@ -153902,7 +153902,7 @@
                     ]
                   },
                   {
-                    "id": "inf-5-a9-m5",
+                    "id": "INF.5.A9-m5",
                     "name": "maturity-level-description",
                     "title": "Úroveň zralosti 5: Komplexní",
                     "class": "maturity-level-comprehensive",
@@ -156653,7 +156653,7 @@
             "class": "baustein",
             "controls": [
               {
-                "id": "inf-9-a1",
+                "id": "INF.9.A1",
                 "title": "INF.9.A1 Vhodný výběr a používání mobilního pracoviště (B)",
                 "class": "technical",
                 "props": [
@@ -156670,7 +156670,7 @@
                 ],
                 "parts": [
                   {
-                    "id": "inf-9-a1-m1",
+                    "id": "INF.9.A1-m1",
                     "name": "maturity-level-description",
                     "title": "Úroveň zralosti 1: Částečná",
                     "class": "maturity-level-partial",
@@ -156690,7 +156690,7 @@
                     ]
                   },
                   {
-                    "id": "inf-9-a1-m2",
+                    "id": "INF.9.A1-m2",
                     "name": "maturity-level-description",
                     "title": "Úroveň zralosti 2: Základní",
                     "class": "maturity-level-foundational",
@@ -156710,7 +156710,7 @@
                     ]
                   },
                   {
-                    "id": "inf-9-a1-m3",
+                    "id": "INF.9.A1-m3",
                     "name": "maturity-level-description",
                     "title": "Úroveň zralosti 3: Definovaná",
                     "class": "maturity-level-defined",
@@ -156730,7 +156730,7 @@
                     ]
                   },
                   {
-                    "id": "inf-9-a1-m4",
+                    "id": "INF.9.A1-m4",
                     "name": "maturity-level-description",
                     "title": "Úroveň zralosti 4: Rozšířená",
                     "class": "maturity-level-enhanced",
@@ -156750,7 +156750,7 @@
                     ]
                   },
                   {
-                    "id": "inf-9-a1-m5",
+                    "id": "INF.9.A1-m5",
                     "name": "maturity-level-description",
                     "title": "Úroveň zralosti 5: Komplexní",
                     "class": "maturity-level-comprehensive",
@@ -156772,7 +156772,7 @@
                 ]
               },
               {
-                "id": "inf-9-a2",
+                "id": "INF.9.A2",
                 "title": "INF.9.A2 Předpisy pro mobilní pracoviště (B)",
                 "class": "technical",
                 "props": [
@@ -156789,7 +156789,7 @@
                 ],
                 "parts": [
                   {
-                    "id": "inf-9-a2-m1",
+                    "id": "INF.9.A2-m1",
                     "name": "maturity-level-description",
                     "title": "Úroveň zralosti 1: Částečná",
                     "class": "maturity-level-partial",
@@ -156809,7 +156809,7 @@
                     ]
                   },
                   {
-                    "id": "inf-9-a2-m2",
+                    "id": "INF.9.A2-m2",
                     "name": "maturity-level-description",
                     "title": "Úroveň zralosti 2: Základní",
                     "class": "maturity-level-foundational",
@@ -156829,7 +156829,7 @@
                     ]
                   },
                   {
-                    "id": "inf-9-a2-m3",
+                    "id": "INF.9.A2-m3",
                     "name": "maturity-level-description",
                     "title": "Úroveň zralosti 3: Definovaná",
                     "class": "maturity-level-defined",
@@ -156849,7 +156849,7 @@
                     ]
                   },
                   {
-                    "id": "inf-9-a2-m4",
+                    "id": "INF.9.A2-m4",
                     "name": "maturity-level-description",
                     "title": "Úroveň zralosti 4: Rozšířená",
                     "class": "maturity-level-enhanced",
@@ -156869,7 +156869,7 @@
                     ]
                   },
                   {
-                    "id": "inf-9-a2-m5",
+                    "id": "INF.9.A2-m5",
                     "name": "maturity-level-description",
                     "title": "Úroveň zralosti 5: Komplexní",
                     "class": "maturity-level-comprehensive",
@@ -156891,7 +156891,7 @@
                 ]
               },
               {
-                "id": "inf-9-a3",
+                "id": "INF.9.A3",
                 "title": "INF.9.A3 Kontrola fyzického a logického přístupu (B)",
                 "class": "technical",
                 "props": [
@@ -156908,7 +156908,7 @@
                 ],
                 "parts": [
                   {
-                    "id": "inf-9-a3-m1",
+                    "id": "INF.9.A3-m1",
                     "name": "maturity-level-description",
                     "title": "Úroveň zralosti 1: Částečná",
                     "class": "maturity-level-partial",
@@ -156928,7 +156928,7 @@
                     ]
                   },
                   {
-                    "id": "inf-9-a3-m2",
+                    "id": "INF.9.A3-m2",
                     "name": "maturity-level-description",
                     "title": "Úroveň zralosti 2: Základní",
                     "class": "maturity-level-foundational",
@@ -156948,7 +156948,7 @@
                     ]
                   },
                   {
-                    "id": "inf-9-a3-m3",
+                    "id": "INF.9.A3-m3",
                     "name": "maturity-level-description",
                     "title": "Úroveň zralosti 3: Definovaná",
                     "class": "maturity-level-defined",
@@ -156968,7 +156968,7 @@
                     ]
                   },
                   {
-                    "id": "inf-9-a3-m4",
+                    "id": "INF.9.A3-m4",
                     "name": "maturity-level-description",
                     "title": "Úroveň zralosti 4: Rozšířená",
                     "class": "maturity-level-enhanced",
@@ -156988,7 +156988,7 @@
                     ]
                   },
                   {
-                    "id": "inf-9-a3-m5",
+                    "id": "INF.9.A3-m5",
                     "name": "maturity-level-description",
                     "title": "Úroveň zralosti 5: Komplexní",
                     "class": "maturity-level-comprehensive",
@@ -157010,7 +157010,7 @@
                 ]
               },
               {
-                "id": "inf-9-a4",
+                "id": "INF.9.A4",
                 "title": "INF.9.A4 Práce s IT systémy třetích stran (B)",
                 "class": "technical",
                 "props": [
@@ -157027,7 +157027,7 @@
                 ],
                 "parts": [
                   {
-                    "id": "inf-9-a4-m1",
+                    "id": "INF.9.A4-m1",
                     "name": "maturity-level-description",
                     "title": "Úroveň zralosti 1: Částečná",
                     "class": "maturity-level-partial",
@@ -157047,7 +157047,7 @@
                     ]
                   },
                   {
-                    "id": "inf-9-a4-m2",
+                    "id": "INF.9.A4-m2",
                     "name": "maturity-level-description",
                     "title": "Úroveň zralosti 2: Základní",
                     "class": "maturity-level-foundational",
@@ -157067,7 +157067,7 @@
                     ]
                   },
                   {
-                    "id": "inf-9-a4-m3",
+                    "id": "INF.9.A4-m3",
                     "name": "maturity-level-description",
                     "title": "Úroveň zralosti 3: Definovaná",
                     "class": "maturity-level-defined",
@@ -157087,7 +157087,7 @@
                     ]
                   },
                   {
-                    "id": "inf-9-a4-m4",
+                    "id": "INF.9.A4-m4",
                     "name": "maturity-level-description",
                     "title": "Úroveň zralosti 4: Rozšířená",
                     "class": "maturity-level-enhanced",
@@ -157107,7 +157107,7 @@
                     ]
                   },
                   {
-                    "id": "inf-9-a4-m5",
+                    "id": "INF.9.A4-m5",
                     "name": "maturity-level-description",
                     "title": "Úroveň zralosti 5: Komplexní",
                     "class": "maturity-level-comprehensive",
@@ -157129,7 +157129,7 @@
                 ]
               },
               {
-                "id": "inf-9-a5",
+                "id": "INF.9.A5",
                 "title": "INF.9.A5 Včasné hlášení ztrát (S)",
                 "class": "technical",
                 "props": [
@@ -157146,7 +157146,7 @@
                 ],
                 "parts": [
                   {
-                    "id": "inf-9-a5-m1",
+                    "id": "INF.9.A5-m1",
                     "name": "maturity-level-description",
                     "title": "Úroveň zralosti 1: Částečná",
                     "class": "maturity-level-partial",
@@ -157166,7 +157166,7 @@
                     ]
                   },
                   {
-                    "id": "inf-9-a5-m2",
+                    "id": "INF.9.A5-m2",
                     "name": "maturity-level-description",
                     "title": "Úroveň zralosti 2: Základní",
                     "class": "maturity-level-foundational",
@@ -157186,7 +157186,7 @@
                     ]
                   },
                   {
-                    "id": "inf-9-a5-m3",
+                    "id": "INF.9.A5-m3",
                     "name": "maturity-level-description",
                     "title": "Úroveň zralosti 3: Definovaná",
                     "class": "maturity-level-defined",
@@ -157206,7 +157206,7 @@
                     ]
                   },
                   {
-                    "id": "inf-9-a5-m4",
+                    "id": "INF.9.A5-m4",
                     "name": "maturity-level-description",
                     "title": "Úroveň zralosti 4: Rozšířená",
                     "class": "maturity-level-enhanced",
@@ -157226,7 +157226,7 @@
                     ]
                   },
                   {
-                    "id": "inf-9-a5-m5",
+                    "id": "INF.9.A5-m5",
                     "name": "maturity-level-description",
                     "title": "Úroveň zralosti 5: Komplexní",
                     "class": "maturity-level-comprehensive",
@@ -157248,7 +157248,7 @@
                 ]
               },
               {
-                "id": "inf-9-a6",
+                "id": "INF.9.A6",
                 "title": "INF.9.A6 Likvidace důvěrných informací (S)",
                 "class": "technical",
                 "props": [
@@ -157265,7 +157265,7 @@
                 ],
                 "parts": [
                   {
-                    "id": "inf-9-a6-m1",
+                    "id": "INF.9.A6-m1",
                     "name": "maturity-level-description",
                     "title": "Úroveň zralosti 1: Částečná",
                     "class": "maturity-level-partial",
@@ -157285,7 +157285,7 @@
                     ]
                   },
                   {
-                    "id": "inf-9-a6-m2",
+                    "id": "INF.9.A6-m2",
                     "name": "maturity-level-description",
                     "title": "Úroveň zralosti 2: Základní",
                     "class": "maturity-level-foundational",
@@ -157305,7 +157305,7 @@
                     ]
                   },
                   {
-                    "id": "inf-9-a6-m3",
+                    "id": "INF.9.A6-m3",
                     "name": "maturity-level-description",
                     "title": "Úroveň zralosti 3: Definovaná",
                     "class": "maturity-level-defined",
@@ -157325,7 +157325,7 @@
                     ]
                   },
                   {
-                    "id": "inf-9-a6-m4",
+                    "id": "INF.9.A6-m4",
                     "name": "maturity-level-description",
                     "title": "Úroveň zralosti 4: Rozšířená",
                     "class": "maturity-level-enhanced",
@@ -157345,7 +157345,7 @@
                     ]
                   },
                   {
-                    "id": "inf-9-a6-m5",
+                    "id": "INF.9.A6-m5",
                     "name": "maturity-level-description",
                     "title": "Úroveň zralosti 5: Komplexní",
                     "class": "maturity-level-comprehensive",
@@ -157367,7 +157367,7 @@
                 ]
               },
               {
-                "id": "inf-9-a7",
+                "id": "INF.9.A7",
                 "title": "INF.9.A7 Právní rámec pro mobilní práci (S)",
                 "class": "technical",
                 "props": [
@@ -157384,7 +157384,7 @@
                 ],
                 "parts": [
                   {
-                    "id": "inf-9-a7-m1",
+                    "id": "INF.9.A7-m1",
                     "name": "maturity-level-description",
                     "title": "Úroveň zralosti 1: Částečná",
                     "class": "maturity-level-partial",
@@ -157404,7 +157404,7 @@
                     ]
                   },
                   {
-                    "id": "inf-9-a7-m2",
+                    "id": "INF.9.A7-m2",
                     "name": "maturity-level-description",
                     "title": "Úroveň zralosti 2: Základní",
                     "class": "maturity-level-foundational",
@@ -157424,7 +157424,7 @@
                     ]
                   },
                   {
-                    "id": "inf-9-a7-m3",
+                    "id": "INF.9.A7-m3",
                     "name": "maturity-level-description",
                     "title": "Úroveň zralosti 3: Definovaná",
                     "class": "maturity-level-defined",
@@ -157444,7 +157444,7 @@
                     ]
                   },
                   {
-                    "id": "inf-9-a7-m4",
+                    "id": "INF.9.A7-m4",
                     "name": "maturity-level-description",
                     "title": "Úroveň zralosti 4: Rozšířená",
                     "class": "maturity-level-enhanced",
@@ -157464,7 +157464,7 @@
                     ]
                   },
                   {
-                    "id": "inf-9-a7-m5",
+                    "id": "INF.9.A7-m5",
                     "name": "maturity-level-description",
                     "title": "Úroveň zralosti 5: Komplexní",
                     "class": "maturity-level-comprehensive",
@@ -157486,7 +157486,7 @@
                 ]
               },
               {
-                "id": "inf-9-a8",
+                "id": "INF.9.A8",
                 "title": "INF.9.A8 Bezpečnostní politika pro mobilní pracovní stanice (S)",
                 "class": "technical",
                 "props": [
@@ -157503,7 +157503,7 @@
                 ],
                 "parts": [
                   {
-                    "id": "inf-9-a8-m1",
+                    "id": "INF.9.A8-m1",
                     "name": "maturity-level-description",
                     "title": "Úroveň zralosti 1: Částečná",
                     "class": "maturity-level-partial",
@@ -157523,7 +157523,7 @@
                     ]
                   },
                   {
-                    "id": "inf-9-a8-m2",
+                    "id": "INF.9.A8-m2",
                     "name": "maturity-level-description",
                     "title": "Úroveň zralosti 2: Základní",
                     "class": "maturity-level-foundational",
@@ -157543,7 +157543,7 @@
                     ]
                   },
                   {
-                    "id": "inf-9-a8-m3",
+                    "id": "INF.9.A8-m3",
                     "name": "maturity-level-description",
                     "title": "Úroveň zralosti 3: Definovaná",
                     "class": "maturity-level-defined",
@@ -157563,7 +157563,7 @@
                     ]
                   },
                   {
-                    "id": "inf-9-a8-m4",
+                    "id": "INF.9.A8-m4",
                     "name": "maturity-level-description",
                     "title": "Úroveň zralosti 4: Rozšířená",
                     "class": "maturity-level-enhanced",
@@ -157583,7 +157583,7 @@
                     ]
                   },
                   {
-                    "id": "inf-9-a8-m5",
+                    "id": "INF.9.A8-m5",
                     "name": "maturity-level-description",
                     "title": "Úroveň zralosti 5: Komplexní",
                     "class": "maturity-level-comprehensive",
@@ -157605,7 +157605,7 @@
                 ]
               },
               {
-                "id": "inf-9-a9",
+                "id": "INF.9.A9",
                 "title": "INF.9.A9 Šifrování přenosných IT systémů a datových nosičů (S)",
                 "class": "technical",
                 "props": [
@@ -157622,7 +157622,7 @@
                 ],
                 "parts": [
                   {
-                    "id": "inf-9-a9-m1",
+                    "id": "INF.9.A9-m1",
                     "name": "maturity-level-description",
                     "title": "Úroveň zralosti 1: Částečná",
                     "class": "maturity-level-partial",
@@ -157642,7 +157642,7 @@
                     ]
                   },
                   {
-                    "id": "inf-9-a9-m2",
+                    "id": "INF.9.A9-m2",
                     "name": "maturity-level-description",
                     "title": "Úroveň zralosti 2: Základní",
                     "class": "maturity-level-foundational",
@@ -157662,7 +157662,7 @@
                     ]
                   },
                   {
-                    "id": "inf-9-a9-m3",
+                    "id": "INF.9.A9-m3",
                     "name": "maturity-level-description",
                     "title": "Úroveň zralosti 3: Definovaná",
                     "class": "maturity-level-defined",
@@ -157682,7 +157682,7 @@
                     ]
                   },
                   {
-                    "id": "inf-9-a9-m4",
+                    "id": "INF.9.A9-m4",
                     "name": "maturity-level-description",
                     "title": "Úroveň zralosti 4: Rozšířená",
                     "class": "maturity-level-enhanced",
@@ -157702,7 +157702,7 @@
                     ]
                   },
                   {
-                    "id": "inf-9-a9-m5",
+                    "id": "INF.9.A9-m5",
                     "name": "maturity-level-description",
                     "title": "Úroveň zralosti 5: Komplexní",
                     "class": "maturity-level-comprehensive",
@@ -157724,7 +157724,7 @@
                 ]
               },
               {
-                "id": "inf-9-a10",
+                "id": "INF.9.A10",
                 "title": "INF.9.A10 Použití zařízení proti krádeži (H)",
                 "class": "technical",
                 "props": [
@@ -157741,7 +157741,7 @@
                 ],
                 "parts": [
                   {
-                    "id": "inf-9-a10-m1",
+                    "id": "INF.9.A10-m1",
                     "name": "maturity-level-description",
                     "title": "Úroveň zralosti 1: Částečná",
                     "class": "maturity-level-partial",
@@ -157761,7 +157761,7 @@
                     ]
                   },
                   {
-                    "id": "inf-9-a10-m2",
+                    "id": "INF.9.A10-m2",
                     "name": "maturity-level-description",
                     "title": "Úroveň zralosti 2: Základní",
                     "class": "maturity-level-foundational",
@@ -157781,7 +157781,7 @@
                     ]
                   },
                   {
-                    "id": "inf-9-a10-m3",
+                    "id": "INF.9.A10-m3",
                     "name": "maturity-level-description",
                     "title": "Úroveň zralosti 3: Definovaná",
                     "class": "maturity-level-defined",
@@ -157801,7 +157801,7 @@
                     ]
                   },
                   {
-                    "id": "inf-9-a10-m4",
+                    "id": "INF.9.A10-m4",
                     "name": "maturity-level-description",
                     "title": "Úroveň zralosti 4: Rozšířená",
                     "class": "maturity-level-enhanced",
@@ -157821,7 +157821,7 @@
                     ]
                   },
                   {
-                    "id": "inf-9-a10-m5",
+                    "id": "INF.9.A10-m5",
                     "name": "maturity-level-description",
                     "title": "Úroveň zralosti 5: Komplexní",
                     "class": "maturity-level-comprehensive",
@@ -157843,7 +157843,7 @@
                 ]
               },
               {
-                "id": "inf-9-a11",
+                "id": "INF.9.A11",
                 "title": "INF.9.A11 Zákaz používání nezabezpečených prostředí (H)",
                 "class": "technical",
                 "props": [
@@ -157860,7 +157860,7 @@
                 ],
                 "parts": [
                   {
-                    "id": "inf-9-a11-m1",
+                    "id": "INF.9.A11-m1",
                     "name": "maturity-level-description",
                     "title": "Úroveň zralosti 1: Částečná",
                     "class": "maturity-level-partial",
@@ -157880,7 +157880,7 @@
                     ]
                   },
                   {
-                    "id": "inf-9-a11-m2",
+                    "id": "INF.9.A11-m2",
                     "name": "maturity-level-description",
                     "title": "Úroveň zralosti 2: Základní",
                     "class": "maturity-level-foundational",
@@ -157900,7 +157900,7 @@
                     ]
                   },
                   {
-                    "id": "inf-9-a11-m3",
+                    "id": "INF.9.A11-m3",
                     "name": "maturity-level-description",
                     "title": "Úroveň zralosti 3: Definovaná",
                     "class": "maturity-level-defined",
@@ -157920,7 +157920,7 @@
                     ]
                   },
                   {
-                    "id": "inf-9-a11-m4",
+                    "id": "INF.9.A11-m4",
                     "name": "maturity-level-description",
                     "title": "Úroveň zralosti 4: Rozšířená",
                     "class": "maturity-level-enhanced",
@@ -157940,7 +157940,7 @@
                     ]
                   },
                   {
-                    "id": "inf-9-a11-m5",
+                    "id": "INF.9.A11-m5",
                     "name": "maturity-level-description",
                     "title": "Úroveň zralosti 5: Komplexní",
                     "class": "maturity-level-comprehensive",
@@ -157962,7 +157962,7 @@
                 ]
               },
               {
-                "id": "inf-9-a12",
+                "id": "INF.9.A12",
                 "title": "INF.9.A12 Použití filtru na ochranu soukromí (S)",
                 "class": "technical",
                 "props": [
@@ -157979,7 +157979,7 @@
                 ],
                 "parts": [
                   {
-                    "id": "inf-9-a12-m1",
+                    "id": "INF.9.A12-m1",
                     "name": "maturity-level-description",
                     "title": "Úroveň zralosti 1: Částečná",
                     "class": "maturity-level-partial",
@@ -157999,7 +157999,7 @@
                     ]
                   },
                   {
-                    "id": "inf-9-a12-m2",
+                    "id": "INF.9.A12-m2",
                     "name": "maturity-level-description",
                     "title": "Úroveň zralosti 2: Základní",
                     "class": "maturity-level-foundational",
@@ -158019,7 +158019,7 @@
                     ]
                   },
                   {
-                    "id": "inf-9-a12-m3",
+                    "id": "INF.9.A12-m3",
                     "name": "maturity-level-description",
                     "title": "Úroveň zralosti 3: Definovaná",
                     "class": "maturity-level-defined",
@@ -158039,7 +158039,7 @@
                     ]
                   },
                   {
-                    "id": "inf-9-a12-m4",
+                    "id": "INF.9.A12-m4",
                     "name": "maturity-level-description",
                     "title": "Úroveň zralosti 4: Rozšířená",
                     "class": "maturity-level-enhanced",
@@ -158059,7 +158059,7 @@
                     ]
                   },
                   {
-                    "id": "inf-9-a12-m5",
+                    "id": "INF.9.A12-m5",
                     "name": "maturity-level-description",
                     "title": "Úroveň zralosti 5: Komplexní",
                     "class": "maturity-level-comprehensive",

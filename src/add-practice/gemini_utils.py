@@ -121,6 +121,18 @@ async def generate_practices_for_batch(batch_of_controls: List[Dict[str, Any]]) 
                 await asyncio.sleep(2 ** attempt)
                 continue
 
+            # Results are mapped back by id (not position), so every requested
+            # id must be present exactly once.
+            requested_ids = {control.get("id") for control in batch_of_controls}
+            returned_ids = {item.get("id") for item in model_output}
+            if returned_ids != requested_ids:
+                logger.warning(
+                    f"Attempt {attempt + 1}: Returned ids do not match requested ids "
+                    f"(missing: {requested_ids - returned_ids}, unexpected: {returned_ids - requested_ids}). Retrying."
+                )
+                await asyncio.sleep(2 ** attempt)
+                continue
+
             logger.info(f"Successfully generated and validated data for batch of {len(batch_of_controls)} controls.")
             return model_output
 
