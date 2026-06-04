@@ -3,7 +3,7 @@
 
 Dieses Projekt stellt eine leistungsstarke, automatisierte Pipeline zur Verfügung, um "Baustein"-PDF-Dokumente des BSI-Grundschutzes in ein reichhaltiges, strukturiertes und OSCAL-konformes JSON-Format zu konvertieren. Es nutzt die fortschrittlichen Fähigkeiten des `gemini-2.5-pro`-Modells von Google, um Inhalte nicht nur zu extrahieren, sondern sie auch tiefgehend mit einem mehrstufigen Reifegradmodell, Praxis-Klassifizierungen und anderen wichtigen Metadaten anzureichern. Dadurch wird der finale Katalog sofort für Analysen und das Compliance-Management nutzbar.
 
-Das System ist für den Betrieb als serverloser **Google Cloud Run Job** konzipiert und arbeitet **inkrementell**. Es liest intelligent einen bestehenden OSCAL-Gesamtkatalog, verarbeitet neue oder aktualisierte PDFs und fügt die Ergebnisse nahtlos zusammen, indem es neue "Bausteine" hinzufügt oder bestehende überschreibt.
+Das System läuft als **lokaler Batch-Prozess** und arbeitet **inkrementell**. Es liest die Quell-PDFs aus lokalen Verzeichnissen, kann einen bestehenden OSCAL-Gesamtkatalog einlesen, verarbeitet neue oder aktualisierte PDFs und fügt die Ergebnisse nahtlos zusammen, indem es neue "Bausteine" hinzufügt oder bestehende überschreibt. Lediglich die KI-Aufrufe laufen über Vertex AI.
 
 ### Hauptfunktionen
 
@@ -59,7 +59,7 @@ Um sowohl Zuverlässigkeit als auch Effizienz zu maximieren, verwendet diese Pip
 ```
 +------------------+
 | Baustein-PDF     |
-| (in GCS)         |
+| (lokal)          |
 +--------+---------+
          |
          v
@@ -118,7 +118,7 @@ Das Python-Skript (`main.py`) fungiert als finaler, deterministischer Assemblier
 ### Kernlogik
 *   **`main.py`:** Der Haupt-Orchestrator. Er liest die Konfiguration, findet Dateien, verwaltet die `asyncio`-Event-Loop für die parallele Verarbeitung, ruft die Utility-Module auf und stellt den finalen OSCAL-Katalog zusammen.
 *   **`config.py`:** Ein zentraler Hub für die gesamte Konfiguration. Er lädt Umgebungsvariablen, definiert statische Dateipfade und Wiederholungseinstellungen und richtet den Logger ein.
-*   **`gcs_utils.py`:** Ein dediziertes Modul für alle Interaktionen mit Google Cloud Storage (Auflisten, Lesen, Schreiben von Dateien).
+*   **`file_utils.py`:** Ein dediziertes Modul für die lokale Datei-I/O (Auflisten der Quell-PDFs, Lesen und Schreiben der Katalog-JSON-Dateien).
 *   **`gemini_utils.py`:** Das "KI-Gehirn" des Projekts. Es initialisiert das Gemini-Modell und enthält die Kernlogik für die Zwei-Stufen-KI-Verarbeitungspipeline, einschließlich der in sich geschlossenen Wiederholungsschleifen für jeden API-Aufruf.
 
 ### Prompts
@@ -160,70 +160,55 @@ Jedes Control wird einer funktionalen Praxis-Domäne zugeordnet, wie z.B. `GOV` 
 
 ## Konfiguration & Lokale Ausführung
 
-Das Skript wird vollständig über Umgebungsvariablen konfiguriert.
+Die Pipeline arbeitet **lokal**: Quell-PDFs werden aus lokalen Verzeichnissen
+gelesen und der fertige Katalog in ein lokales Ausgabeverzeichnis geschrieben.
+Es wird **kein** Google Cloud Storage mehr verwendet. Die Modellaufrufe laufen
+weiterhin über Vertex AI, daher sind `GCP_PROJECT_ID` und Application Default
+Credentials erforderlich.
 
-| Variable                 | Erforderlich? | Beschreibung                                                                                                                             |
-| ------------------------ | :-----------: | ---------------------------------------------------------------------------------------------------------------------------------------- |
-| `GCP_PROJECT_ID`         |      Ja       | Ihre Google Cloud Projekt-ID.                                                                                                            |
-| `BUCKET_NAME`            |      Ja       | Der Name des GCS-Buckets, der die Quelldateien enthält und in den die Ergebnisse geschrieben werden.                                     |
-| `SOURCE_PREFIX`          |      Ja       | Der Pfad (Präfix) innerhalb des Buckets, in dem sich die `.pdf`-Quelldateien befinden. Ein abschließender Schrägstrich wird empfohlen (z. B. `source_pdfs/`). |
-| `EXISTING_JSON_GCS_PATH` |      Nein     | Der vollständige GCS-Pfad zu einer bestehenden Katalogdatei, die aktualisiert werden soll. Wenn nicht angegeben, wird ein neuer Katalog erstellt. |
-| `TEST`                   |      Nein     | Setzen Sie dies auf `"true"`, um den Testmodus zu aktivieren (Groß- und Kleinschreibung wird nicht beachtet). Dieser verarbeitet nur die ersten 3 PDFs und nur 10 % der Anforderungen in jeder Datei. |
+| Variable             | Erforderlich? | Standard                                                            | Beschreibung                                                                                                                                                |
+| -------------------- | :-----------: | ------------------------------------------------------------------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `GCP_PROJECT_ID`     |      Ja       | –                                                                  | Ihre Google Cloud Projekt-ID (für Vertex AI).                                                                                                              |
+| `REGION`             |      Nein     | `us-central1`                                                       | Die Vertex-AI-Region.                                                                                                                                       |
+| `SOURCE_DIRS`        |      Nein     | `BS_GK_OSCAL_JSON_DATA/Benutzerdefinierte_Bausteine` **und** `data` | Mit `:` getrennte Liste von Verzeichnissen, aus denen `*.pdf`-Dateien gelesen werden. Relative Pfade beziehen sich auf den Repo-Root.                       |
+| `OUTPUT_DIR`         |      Nein     | `data/output`                                                       | Verzeichnis, in das der zusammengeführte Katalog geschrieben wird (git-ignoriert).                                                                          |
+| `EXISTING_JSON_PATH` |      Nein     | –                                                                  | Pfad zu einer bestehenden Katalogdatei, die aktualisiert werden soll. Ohne Angabe wird ein neuer Katalog erstellt.                                          |
+| `TEST`               |      Nein     | `false`                                                            | Auf `"true"` setzen, um den Testmodus zu aktivieren: verarbeitet nur die ersten 3 PDFs und 10 % der Anforderungen je Datei.                                 |
 
+Das Verzeichnis `data/` ist über `.gitignore` ausgeschlossen und dient als
+lokale Ablage für eigene Eingabe-PDFs sowie für die generierten Kataloge.
 
-### Lokale Ausführung
-1.  **Authentifizieren Sie sich bei Google Cloud:**
-    ```bash
-    gcloud auth application-default login
-    ```
-2.  **Setzen Sie die Umgebungsvariablen (Beispiel):**
-    ```bash
-    export GCP_PROJECT_ID="your-gcp-project-id"
-    export BUCKET_NAME="your-company-bucket"
-    export SOURCE_PREFIX="bsi/source_pdfs/"
-    export EXISTING_JSON_GCS_PATH="results/MERGED_BSI_Catalog_latest.json"
-    export TEST="false"
-    ```
-3.  **Installieren Sie die Abhängigkeiten und führen Sie das Skript aus:**
-    ```bash
-    pip install -r requirements.txt
-    python main.py
-    ```
+### Lokale Ausführung (Komfort-Skript)
 
----
-
-## Deployment auf Google Cloud Run Jobs
-
-Diese Anwendung ist für den Betrieb als serverloser Batch-Job konzipiert.
-
-### Schritt 1: Erstellen Sie das Container-Image
-Verwenden Sie Google Cloud Build, um ein Container-Image aus dem `Dockerfile` zu erstellen und es in die Artifact Registry zu pushen.
+Das Skript `run_local.sh` legt die Datenverzeichnisse an, prüft die
+Credentials, installiert bei Bedarf die Abhängigkeiten und startet die Pipeline:
 
 ```bash
-gcloud builds submit --tag gcr.io/[YOUR_PROJECT_ID]/g2oscal-pipeline .
+# Authentifizierung (einmalig)
+gcloud auth application-default login
+
+# Vollständiger Lauf
+GCP_PROJECT_ID=my-project ./run_local.sh
+
+# Schneller Testlauf (3 PDFs, 10 % der Anforderungen)
+GCP_PROJECT_ID=my-project TEST=true ./run_local.sh
 ```
 
-### Schritt 2: Erstellen Sie den Cloud Run Job
-Erstellen Sie einen Job, der das Container-Image verwendet und die notwendigen Umgebungsvariablen übergibt.
-
-```bash
-gcloud run jobs create g2oscal-job \
-  --image gcr.io/[YOUR_PROJECT_ID]/g2oscal-pipeline \
-  --region [YOUR_GCP_REGION] \
-  --task-timeout=3600 \
-  --set-env-vars="GCP_PROJECT_ID=[YOUR_PROJECT_ID]" \
-  --set-env-vars="BUCKET_NAME=[YOUR_BUCKET_NAME]" \
-  --set-env-vars="SOURCE_PREFIX=bsi/source_pdfs/" \
-  --set-env-vars="EXISTING_JSON_GCS_PATH=results/MERGED_BSI_Catalog_latest.json" \
-  --set-env-vars="TEST=false"
-```
-> **Hinweis:** Stellen Sie sicher, dass das vom Job verwendete Servicekonto die Rollen "Vertex AI User" und "Storage Object Admin" besitzt.
-
-### Schritt 3: Führen Sie den Job aus
-Sie können den Job manuell über die Konsole oder über die Kommandozeile ausführen.
+### Lokale Ausführung (manuell)
 
 ```bash
-gcloud run jobs execute g2oscal-job --region [YOUR_GCP_REGION]
+gcloud auth application-default login
+pip install -r requirements.txt
+
+export GCP_PROJECT_ID="your-gcp-project-id"
+export TEST="false"
+# Optional: eigene Quellverzeichnisse / Ausgabe / Basis-Katalog
+# export SOURCE_DIRS="BS_GK_OSCAL_JSON_DATA/Benutzerdefinierte_Bausteine:data"
+# export OUTPUT_DIR="data/output"
+# export EXISTING_JSON_PATH="BS_GK_OSCAL_JSON_DATA/BSI_GS_OSCAL_current_2023_benutzerdefinierte.json"
+
+python main.py
 ```
-Der Job wird ausgeführt, verarbeitet alle neuen PDFs, fügt sie dem Katalog hinzu und speichert die neue Version in Google Cloud Storage.
-```
+
+Die fertige Katalogdatei erscheint als
+`data/output/MERGED_BSI_Catalog_<timestamp>.json`.

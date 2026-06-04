@@ -1,7 +1,7 @@
 import json
 import logging
 
-from config import (TEST_MODE, BUCKET_NAME, app_config,
+from config import (TEST_MODE, app_config,
                     DISCOVERY_ENRICHMENT_PROMPT_FILE, GENERATION_PROMPT_FILE,
                     DISCOVERY_ENRICHMENT_STUB_SCHEMA_FILE, GENERATION_STUB_SCHEMA_FILE)
 from constants import GROUND_TRUTH_MODEL_PRO
@@ -25,24 +25,24 @@ except Exception as e:
     raise
 
 # --- Main Processing Logic ---
-async def process_baustein_pdf(blob, semaphore, build_oscal_control_func):
+async def process_baustein_pdf(pdf_path, semaphore, build_oscal_control_func):
     """Orchestrates the two-stage generation process for a single Baustein PDF."""
     async with semaphore:
-        logging.info(f"Processing file: {blob.name}")
+        pdf_name = pdf_path.name
+        logging.info(f"Processing file: {pdf_name}")
         try:
             # STAGE 1: Combined Discovery & Enrichment
-            logging.debug(f"Stage 1: Discovering & Enriching structure for {blob.name}...")
-            gcs_uri = f"gs://{BUCKET_NAME}/{blob.name}"
+            logging.debug(f"Stage 1: Discovering & Enriching structure for {pdf_name}...")
             discovery_enrichment_data = await ai_client.generate_validated_json_response(
                 prompt=discovery_enrichment_prompt_text,
                 json_schema=loaded_discovery_enrichment_schema,
-                gcs_uris=[gcs_uri],
-                request_context_log=f"Discovery {blob.name}",
+                pdf_paths=[str(pdf_path)],
+                request_context_log=f"Discovery {pdf_name}",
                 model_override=GROUND_TRUTH_MODEL_PRO,
             )
 
             requirements_to_process = discovery_enrichment_data.get('requirements_list', [])
-            logging.info(f"  └─ Discovered {len(requirements_to_process)} requirements for {blob.name}.")
+            logging.info(f"  └─ Discovered {len(requirements_to_process)} requirements for {pdf_name}.")
 
             if TEST_MODE and requirements_to_process:
                 slice_index = max(1, int(len(requirements_to_process) * 0.10))
@@ -54,7 +54,7 @@ async def process_baustein_pdf(blob, semaphore, build_oscal_control_func):
                 # (truncation, safety block, or model miss), not a success — a
                 # Baustein with no Anforderungen must not be merged silently.
                 raise ValueError(
-                    f"Discovery stage returned no requirements for {blob.name}; flagging for re-run."
+                    f"Discovery stage returned no requirements for {pdf_name}; flagging for re-run."
                 )
 
             # STAGE 2: Generation of Maturity Prose
@@ -63,7 +63,7 @@ async def process_baustein_pdf(blob, semaphore, build_oscal_control_func):
             generation_data = await ai_client.generate_validated_json_response(
                 prompt=generation_batch_prompt,
                 json_schema=loaded_generation_schema,
-                request_context_log=f"Generation {blob.name}",
+                request_context_log=f"Generation {pdf_name}",
                 model_override=GROUND_TRUTH_MODEL_PRO,
             )
             logging.debug(f"Maturity prose generation successful.")
@@ -94,9 +94,9 @@ async def process_baustein_pdf(blob, semaphore, build_oscal_control_func):
                 "id": discovery_enrichment_data.get("baustein_id"), "title": discovery_enrichment_data.get("baustein_title"),
                 "class": "baustein", "parts": discovery_enrichment_data.get("contextual_parts", []), "controls": final_controls
             }
-            logging.info(f"  └─ Successfully finished processing {blob.name}.")
+            logging.info(f"  └─ Successfully finished processing {pdf_name}.")
             return discovery_enrichment_data.get("main_group_id"), final_baustein_group
 
         except Exception as e:
-            logging.error(f"  └─ FAILED to process {blob.name}. Error: {e}", exc_info=TEST_MODE)
+            logging.error(f"  └─ FAILED to process {pdf_name}. Error: {e}", exc_info=TEST_MODE)
             return None, None

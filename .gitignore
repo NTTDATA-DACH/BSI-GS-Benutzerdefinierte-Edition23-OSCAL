@@ -1,2 +1,5 @@
 __pycache__/
 *.py[cod]
+
+# Local working data for the g2oscal pipeline (input PDFs + generated catalogs)
+/data/

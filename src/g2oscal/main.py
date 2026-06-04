@@ -9,7 +9,7 @@ from datetime import datetime, timezone
 from jsonschema import validate, ValidationError
 
 import config
-import gcs_utils
+import file_utils
 from gemini_utils import process_baustein_pdf
 
 # Initialize logging as the first step
@@ -79,19 +79,19 @@ def build_oscal_control(requirement_stub: dict, maturity_prose: dict) -> dict:
         "parts": oscal_parts
     }
 
-def load_existing_catalog(gcs_path, schema):
-    if not gcs_path:
+def load_existing_catalog(json_path, schema):
+    if not json_path:
         logger.info("No existing JSON path provided. Starting with a fresh catalog.")
         return get_empty_catalog_structure()
-    
+
     try:
-        existing_catalog = gcs_utils.read_json_from_gcs(gcs_path)
+        existing_catalog = file_utils.read_json(json_path)
         if existing_catalog is None:
             return get_empty_catalog_structure()
         validate(instance=existing_catalog, schema=schema)
         return existing_catalog
     except (json.JSONDecodeError, ValidationError) as e:
-        logging.critical(f"FATAL: Existing JSON at {gcs_path} is invalid: {e}. Please fix.")
+        logging.critical(f"FATAL: Existing JSON at {json_path} is invalid: {e}. Please fix.")
         sys.exit(1)
 
 def get_empty_catalog_structure():
@@ -133,20 +133,21 @@ async def main():
     with open(config.OSCAL_SCHEMA_FILE, 'r', encoding='utf-8') as f: 
         loaded_oscal_schema = json.load(f)
 
-    base_catalog = load_existing_catalog(config.EXISTING_JSON_GCS_PATH, loaded_oscal_schema)
-    
-    all_blobs = gcs_utils.list_blobs(prefix=config.SOURCE_PREFIX)
-    files_to_process = [blob for blob in all_blobs if blob.name.lower().endswith('.pdf')]
+    base_catalog = load_existing_catalog(config.EXISTING_JSON_PATH, loaded_oscal_schema)
+
+    files_to_process = file_utils.list_pdfs(config.SOURCE_DIRS)
     if not files_to_process:
-        logger.warning(f"No PDF files found in gs://{config.BUCKET_NAME}/{config.SOURCE_PREFIX}. Exiting.")
+        listed = ", ".join(str(d) for d in config.SOURCE_DIRS)
+        logger.warning(f"No PDF files found in: {listed}. Exiting.")
         return
-    
-    if config.TEST_MODE: 
+    logger.info(f"Found {len(files_to_process)} PDF(s) across {len(config.SOURCE_DIRS)} source directory(ies).")
+
+    if config.TEST_MODE:
         files_to_process = files_to_process[:3]
         logger.warning(f"--- TEST MODE: Processing a maximum of {len(files_to_process)} files. ---")
     
     semaphore = asyncio.Semaphore(config.CONCURRENT_REQUEST_LIMIT)
-    tasks = [process_baustein_pdf(blob, semaphore, build_oscal_control) for blob in files_to_process]
+    tasks = [process_baustein_pdf(pdf_path, semaphore, build_oscal_control) for pdf_path in files_to_process]
     
     all_results = await asyncio.gather(*tasks)
     successful_results = [res for res in all_results if res and res[0] and res[1]]
@@ -161,10 +162,10 @@ async def main():
         logging.critical(f"Final catalog validation FAILED: {e.message}. The output file may be non-compliant.", exc_info=config.TEST_MODE)
 
     timestamp = datetime.now(timezone.utc).strftime("%Y%m%d_%H%M%S")
-    output_filename = f"{config.FINAL_RESULT_PREFIX}MERGED_BSI_Catalog_{timestamp}.json"
-    gcs_utils.write_json_to_gcs(output_filename, final_catalog)
-    
-    logger.info(f"Final catalog successfully written to: gs://{config.BUCKET_NAME}/{output_filename}")
+    output_path = config.OUTPUT_DIR / f"MERGED_BSI_Catalog_{timestamp}.json"
+    file_utils.write_json(output_path, final_catalog)
+
+    logger.info(f"Final catalog successfully written to: {output_path}")
     
     logger.info("--- Batch Job Summary ---")
     logger.info(f"Successfully processed: {len(successful_results)} file(s).")

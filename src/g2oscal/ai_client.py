@@ -190,10 +190,10 @@ class AiClient:
         return response_json
 
     async def generate_validated_json_response(
-        self, 
-        prompt: str, 
-        json_schema: Dict[str, Any], 
-        gcs_uris: List[str] = None,
+        self,
+        prompt: str,
+        json_schema: Dict[str, Any],
+        pdf_paths: List[str] = None,
         request_context_log: str = "Generic AI Request",
         model_override: Optional[str] = None,
         max_retries: int = None,
@@ -222,14 +222,16 @@ class AiClient:
         # Construct Content Parts
         # The new SDK allows mixing strings and types.Part objects
         contents = []
-        
-        # Add GCS Files if present
-        if gcs_uris:
-            for uri in gcs_uris:
-                # Syntax: types.Part.from_uri(file_uri=..., mime_type=...)
-                contents.append(types.Part.from_uri(file_uri=uri, mime_type="application/pdf"))
+
+        # Add local PDF files inline (the Baustein PDFs are small, well under the
+        # inline request-size limit, so no upload/GCS round-trip is needed).
+        if pdf_paths:
+            for path in pdf_paths:
+                with open(path, "rb") as f:
+                    pdf_bytes = f.read()
+                contents.append(types.Part.from_bytes(data=pdf_bytes, mime_type="application/pdf"))
             if self.config.is_test_mode:
-                logger.debug(f"Attaching {len(gcs_uris)} GCS files to the prompt.")
+                logger.debug(f"Attaching {len(pdf_paths)} local PDF file(s) to the prompt.")
 
         # Add the text prompt
         contents.append(prompt)
